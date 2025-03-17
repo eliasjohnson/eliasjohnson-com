@@ -86,7 +86,7 @@
                             <li>Delivered top-tier technical support, ranking as highest-performing ticket resolver for four consecutive quarters</li>
                             <li>Managed IT infrastructure and set up render farms, resulting in 4x faster render speeds</li>
                             <li>Reduced new-hire IT setup time by 66.7% while onboarding over 500 employees</li>
-                            <li>Automated SAAS employee onboardings via APIs on AWS Lambda</li>
+                            <li>Automated SAAS employee onboardings via APIs</li>
                             <li>Created custom workflows with Tines and Python scripts utilizing APIs</li>
                         </ul>
                     </div>
