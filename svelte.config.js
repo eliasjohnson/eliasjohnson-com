@@ -20,6 +20,10 @@ const config = {
 		}),
 		paths: {
 			base: process.env.NODE_ENV === 'production' ? '/eliasjohnson-com' : ''
+		},
+		// Enable prerendering by default
+		prerender: {
+			handleMissingId: 'ignore'
 		}
 	}
 };
