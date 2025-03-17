@@ -19,11 +19,16 @@ const config = {
 			strict: true
 		}),
 		paths: {
-			base: process.env.NODE_ENV === 'production' ? '/eliasjohnson-com' : ''
+			base: '/eliasjohnson-com'
 		},
 		// Enable prerendering by default
 		prerender: {
-			handleMissingId: 'ignore'
+			handleMissingId: 'ignore',
+			handleHttpError: ({ status }) => {
+				if (status === 404) {
+					return { continue: true };
+				}
+			}
 		}
 	}
 };
