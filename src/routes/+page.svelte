@@ -1,7 +1,7 @@
 <svelte:head>
     <title>Elias Johnson | Web Developer</title>
     <meta name="description" content="Information Technology Specialist and Web Developer with experience at Pattern, Microsoft, and freelance projects">
-    <meta property="og:title" content="Elias Johnson | Information Technology Specialist">
+    <meta property="og:title" content="Elias Johnson | Front End Web Developer">
     <meta property="og:description" content="IT specialist with expertise in technical support, infrastructure management, automation, and web development">
     <meta property="og:image" content="https://yourdomain.com/preview-image.jpg">
     <meta property="og:url" content="https://yourdomain.com">
