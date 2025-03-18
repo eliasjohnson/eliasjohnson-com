@@ -86,7 +86,7 @@
                             <li>Delivered top-tier technical support, ranking as highest-performing ticket resolver for four consecutive quarters</li>
                             <li>Managed IT infrastructure and set up render farms, resulting in 4x faster render speeds</li>
                             <li>Reduced new-hire IT setup time by 66.7% while onboarding over 500 employees</li>
-                            <li>Automated SAAS employee onboardings via APIs</li>
+                            <li>Managed equipment inventory and worked with vendors to get the best deals</li>
                             <li>Created custom workflows with Tines and Python scripts utilizing APIs</li>
                         </ul>
                     </div>
@@ -153,26 +153,30 @@
                     <div class="education-detail-content" in:fade={{duration: 300, delay: 350}} out:fade={{duration: 200}}>
                         <ul>
                             <li>Database Theory - MySQL</li>
-                            <li>Data Science - Python & R</li>
+                            <li>Data Science; Big Data Analytics - Python & R</li>
                             <li>Data Warehousing - Microsoft SQL Server</li>
                             <li>Advanced Statistical Methods - R</li>
                             <li>Data Security Analytics - Kali Linux</li>
                             <li>Marketing & Organizational Behavior</li>
                             <li>Business Intelligence - Tableau</li>
                             <li>Business Communication</li>
-                            <li>Financial and Managerial Accounting</li>
-                            <li>Systems Analysis and Design</li>
+                            <li>Financial and Managerial Accounting - Excel</li>
+                            <li>Systems Design & Implementation - UML & Mermaid</li>
+                            <li>Advanced Excel for Decision Making</li>
+                            <li>Management Information Systems</li>
+                            <li>Web Systems Development</li>
                         </ul>
                     </div>
                 {:else if currentEducationText === 'cs'}
                     <div class="education-detail-content" in:fade={{duration: 300, delay: 350}} out:fade={{duration: 200}}>
                         <ul>
                             <li>Object Oriented Programming - Python</li>
-                            <li>Data Structures and Algorithms - Python</li>
+                            <li>Data Structures & Algorithms - Python</li>
                             <li>Computer Networks - Wireshark</li>
-                            <li>Linux Administration- Bash</li>
+                            <li>Linux Administration - Bash</li>
                             <li>Web Application Development - Full Stack</li>
                             <li>Computer Architecture - Assembly</li>
+                            <li>Numerical Software Development - Python</li>
                         </ul>
                     </div>
                 {:else if currentEducationText === 'web'}
@@ -185,7 +189,7 @@
                             <li>React</li>
                             <li>Pnpm</li>
                             <li>Typescript</li>
-                            <li>Web and UX Design</li>
+                            <li>Web & UX Design</li>
                         </ul>
                     </div>
                 {/if}
