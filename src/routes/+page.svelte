@@ -225,13 +225,19 @@
                         <div class="project-item">
                             <div class="project-number">04</div>
                             <h3>Custom Computer Builds</h3>
-                            <p>I build custom computers for clients and friends</p>
+                            <p class="project-name">Pattern</p>
+                            <p>I build custom computers for clients like Pattern and friends</p>
                         </div>
                         <div class="project-item">
                             <div class="project-number">05</div>
                             <h3>Eagle Scout Project</h3>
                             <p class="project-name">BSOA</p>
                             <p>Constructed a bridge in at Starvation Creek for the Utah Division of Wildlife Resources</p>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-number">06</div>
+                            <h3>This Website</h3>
+                            <p>Built this website with Svelte and Tailwind CSS, hosted on Github Pages</p>
                         </div>
                     {/each}
                 </div>
