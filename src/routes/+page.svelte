@@ -231,7 +231,7 @@
                             <div class="project-number">05</div>
                             <h3>Eagle Scout Project</h3>
                             <p class="project-name">BSOA</p>
-                            <p>Contructed a bridge in at Starvation Creek for the Utah Division of Wildlife Resources</p>
+                            <p>Constructed a bridge in at Starvation Creek for the Utah Division of Wildlife Resources</p>
                         </div>
                     {/each}
                 </div>
