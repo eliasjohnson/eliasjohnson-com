@@ -305,6 +305,7 @@
                 <div 
                     class="carousel-track" 
                     bind:this={carouselTrack}
+                    role="presentation"
                     on:mouseenter={handleMouseEnter}
                     on:mouseleave={handleMouseLeave}
                 >
