@@ -125,7 +125,7 @@
             
             <div class="experience-detail" class:visible={experienceTextVisible} bind:this={experienceDetailEl}>
                 {#if currentExperienceText === 'senior'}
-                    <div class="experience-detail-content" in:fade={{duration: 300, delay: 350}} out:fade={{duration: 200}}>
+                    <div class="experience-detail-content" in:fade={{duration: 200}} out:fade={{duration: 100}}>
                         <ul>
                             <li>Delivered top-tier technical support, ranking as highest-performing ticket resolver for four consecutive quarters</li>
                             <li>Managed IT infrastructure and set up render farms, resulting in 4x faster render speeds</li>
@@ -135,7 +135,7 @@
                         </ul>
                     </div>
                 {:else if currentExperienceText === 'web'}
-                    <div class="experience-detail-content" in:fade={{duration: 300, delay: 350}} out:fade={{duration: 200}}>
+                    <div class="experience-detail-content" in:fade={{duration: 200}} out:fade={{duration: 100}}>
                         <ul>
                             <li>Provided comprehensive technical support to small and medium-sized businesses</li>
                             <li>Consistently ranked in top 5% for ticket resolutions and customer satisfaction</li>
@@ -145,7 +145,7 @@
                         </ul>
                     </div>
                 {:else if currentExperienceText === 'junior'}
-                    <div class="experience-detail-content" in:fade={{duration: 300, delay: 350}} out:fade={{duration: 200}}>
+                    <div class="experience-detail-content" in:fade={{duration: 200}} out:fade={{duration: 100}}>
                         <ul>
                             <li>Designed and built the school's website from the ground up</li>
                             <li>Worked closely with the owner to create an effective online presence</li>
@@ -251,7 +251,7 @@
             
             <div class="education-detail" class:visible={educationTextVisible} bind:this={educationDetailEl}>
                 {#if currentEducationText === 'bs'}
-                    <div class="education-detail-content" in:fade={{duration: 300, delay: 350}} out:fade={{duration: 200}}>
+                    <div class="education-detail-content" in:fade={{duration: 200}} out:fade={{duration: 100}}>
                         <ul>
                             <li>Database Theory - MySQL</li>
                             <li>Data Science; Big Data Analytics - Python & R</li>
@@ -269,7 +269,7 @@
                         </ul>
                     </div>
                 {:else if currentEducationText === 'cs'}
-                    <div class="education-detail-content" in:fade={{duration: 300, delay: 350}} out:fade={{duration: 200}}>
+                    <div class="education-detail-content" in:fade={{duration: 200}} out:fade={{duration: 100}}>
                         <ul>
                             <li>Object Oriented Programming - Python</li>
                             <li>Data Structures & Algorithms - Python</li>
@@ -281,7 +281,7 @@
                         </ul>
                     </div>
                 {:else if currentEducationText === 'web'}
-                    <div class="education-detail-content" in:fade={{duration: 300, delay: 350}} out:fade={{duration: 200}}>
+                    <div class="education-detail-content" in:fade={{duration: 200}} out:fade={{duration: 100}}>
                         <ul>
                             <li>Github & Git</li>
                             <li>HTML & CSS</li>
@@ -350,28 +350,19 @@
     </section>
 
     <footer id="contact" class="footer">
-        <div class="content">
-            <div class="social-links">
-                <a href="https://github.com/eliasjohnson" target="_blank" rel="noopener noreferrer" class="social-link">
-                    <span class="social-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                    </span>
-                    <span class="social-text">GitHub</span>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://github.com/eliasjohnson" target="_blank" rel="noopener noreferrer" class="footer-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                 </a>
-                <a href="https://linkedin.com/in/eliasjohnson211" target="_blank" rel="noopener noreferrer" class="social-link">
-                    <span class="social-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                    </span>
-                    <span class="social-text">LinkedIn</span>
+                <a href="https://linkedin.com/in/eliasjohnson211" target="_blank" rel="noopener noreferrer" class="footer-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                 </a>
-                <a href="https://instagram.com/elias.hamke" target="_blank" rel="noopener noreferrer" class="social-link">
-                    <span class="social-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                    </span>
-                    <span class="social-text">Instagram</span>
+                <a href="https://instagram.com/elias.hamke" target="_blank" rel="noopener noreferrer" class="footer-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                 </a>
             </div>
-            <p class="footer-text">© 2025 Elias Johnson. All rights reserved.</p>
+            <div class="footer-text">© 2025 Elias Johnson</div>
         </div>
     </footer>
 </div>
@@ -759,89 +750,86 @@
     }
 
     .footer {
-        padding: clamp(1rem, 4vh, 2rem) clamp(1rem, 4vw, 2rem); /* Responsive padding */
-        margin-top: min(10vh, 4rem); /* Viewport-relative margin */
+        padding: 4rem 2rem;
         background-color: #fff;
-        border-top: 1px solid #eee;
         position: relative;
         z-index: 10;
-        scroll-snap-align: start;
     }
 
-    .footer .content {
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 1rem;
-        max-width: 1200px;
-        margin: 0 auto;
+        gap: 2rem;
     }
 
-    .social-links {
+    .footer-links {
         display: flex;
-        gap: 1rem;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .social-link {
-        display: flex;
+        gap: 2rem;
         align-items: center;
-        gap: 0.5rem;
-        text-decoration: none;
-        color: #666;
-        padding: 0.75rem 1.5rem;
-        border: 1px solid #eee;
-        border-radius: 4px;
+    }
+
+    .footer-link {
+        color: #222;
+        opacity: 0.6;
         transition: all 0.3s ease;
-        background-color: white;
-    }
-
-    .social-link:hover {
-        color: olive;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    }
-
-    .social-icon {
         display: flex;
         align-items: center;
+        justify-content: center;
+        padding: 0.5rem;
     }
 
-    .social-text {
-        font-weight: 500;
+    .footer-link:hover {
+        opacity: 1;
+        transform: translateY(-2px);
     }
 
     .footer-text {
-        color: #888;
-        font-size: 0.9rem;
+        font-size: 0.875rem;
+        color: #666;
+        letter-spacing: 0.02em;
     }
 
     @media (max-width: 768px) {
         .footer {
-            padding: 1.25rem 1rem;
+            padding: 3rem 1.5rem;
         }
 
-        .social-links {
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            justify-content: center;
+        .footer-content {
+            gap: 1.5rem;
         }
 
-        .social-link {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-            flex: 0 1 auto; /* Allow links to shrink */
-            min-width: auto; /* Remove minimum width constraint */
+        .footer-links {
+            gap: 1.5rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .footer {
+            padding: 2rem 1rem;
+        }
+
+        .footer-content {
+            gap: 1rem;
+        }
+
+        .footer-links {
+            gap: 1.25rem;
+        }
+
+        .footer-text {
+            font-size: 0.8125rem;
         }
     }
 
     #projects {
         min-height: auto;
-        padding-bottom: min(20vh, 12rem); /* Use viewport-relative units with fallback */
+        padding: 6rem 2rem 2rem;
         display: flex;
-        align-items: center;
-        justify-content: center;
+        align-items: flex-start;
+        justify-content: flex-start;
     }
 
     #projects .content {
@@ -850,7 +838,6 @@
         align-items: flex-start;
         width: 100%;
         padding-top: 2rem;
-        margin-bottom: min(10vh, 4rem); /* Viewport-relative margin */
     }
 
     #projects .section-title {
@@ -914,7 +901,7 @@
         position: relative;
         overflow: hidden;
         padding: 2rem 0;
-        margin-bottom: min(10vh, 4rem);
+        margin-bottom: 2rem;
     }
     
     .carousel-track {
@@ -951,18 +938,22 @@
     }
 
     @media (max-width: 768px) {
+        #projects {
+            padding: 4rem 1rem 2rem;
+        }
+
         .carousel-track {
             grid-auto-columns: 85%;
             gap: 1rem;
             padding: 0 1rem;
-            scroll-snap-type: x mandatory;
         }
 
         .carousel-container {
-            margin: 1rem -1rem 2rem;
+            margin: 1rem -1rem;
             padding: 1rem 0;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
         }
 
         .project-item {
@@ -1067,35 +1058,82 @@
     }
 
     @media (min-width: 769px) {
-        .experience-detail, .education-detail {
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: auto;
-            min-height: 350px;
-            pointer-events: none;
-            transform: translateY(2rem);
-            overflow: visible;
-        }
-        
-        #experience .content, #education .content {
-            padding-bottom: 2rem;
+        .experience-items, .education-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 50%;
             position: relative;
-            min-height: calc(500px + 4rem); /* Increased minimum height to accommodate more content */
+            z-index: 2;
         }
-        
-        .experience-detail-content, .education-detail-content {
-            padding: 2rem 0;
+
+        .item-container {
+            width: 100%;
+        }
+
+        .experience-item, .education-item {
+            width: 100%;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .experience-detail, .education-detail {
+            position: fixed;
+            left: 55%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40%;
             height: auto;
-            min-height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0s;
+            background: white;
+            padding: 2rem;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
-        
+
+        .experience-detail.visible, .education-detail.visible {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transition: opacity 0.2s ease;
+        }
+
+        .experience-detail-content, .education-detail-content {
+            padding: 0;
+            height: auto;
+        }
+
         .mobile-detail {
             display: none !important;
         }
 
-        .experience-detail.visible, .education-detail.visible {
-            pointer-events: auto;
+        #experience .content, #education .content {
+            padding-bottom: 2rem;
+            position: relative;
+            height: auto;
+            min-height: auto;
+            overflow: visible;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        /* Ensure sections have proper spacing */
+        #experience, #education {
+            min-height: 100vh;
+            padding: 6rem 2rem;
+            display: flex;
+            align-items: center;
+            overflow: visible;
+        }
+
+        .experience-item.active, .education-item.active {
+            border-color: olive;
+            transform: translateX(1rem);
         }
     }
 
@@ -1144,6 +1182,10 @@
         .nav-item {
             font-size: 0.85rem;
         }
+
+        #projects {
+            padding: 3rem 0.75rem 2rem;
+        }
     }
 </style>
 
@@ -1182,6 +1224,38 @@
     const projects = [
         {
             number: "01",
+            title: "First Website",
+            name: "About Elias Johnson",
+            description: "My first website built with HTML and CSS, showcasing fundamental web development skills",
+            link: "https://abouteliasjohnsoncss.netlify.app/",
+            technologies: ["HTML", "CSS"]
+        },
+        {
+            number: "02",
+            title: "Student Registration",
+            name: "Academic Portal",
+            description: "Interactive student registration page with form validation and responsive design",
+            link: "https://project5eliasjohnson.netlify.app/",
+            technologies: ["HTML", "CSS", "JavaScript"]
+        },
+        {
+            number: "03",
+            title: "Book Database App",
+            name: "Library Manager",
+            description: "Dynamic book database application with search and filtering capabilities",
+            link: "https://project4bookapp.netlify.app/",
+            technologies: ["JavaScript", "CSS", "Web Storage API"]
+        },
+        {
+            number: "04",
+            title: "Trivia Web App",
+            name: "Interactive Quiz Game",
+            description: "Dynamic trivia application with multiple categories and score tracking",
+            link: "https://eliasjohnsonproject3trivia.netlify.app/",
+            technologies: ["JavaScript", "CSS", "API Integration"]
+        },
+        {
+            number: "05",
             title: "Business Website",
             name: "Provo School of The Arts",
             description: "Website via Squarespace & IT infrastructure setup for a small business",
@@ -1189,7 +1263,7 @@
             technologies: ["Squarespace", "IT Infrastructure"]
         },
         {
-            number: "02",
+            number: "06",
             title: "SAAS Onboarding Automations",
             name: "Pattern",
             description: "Automated employee onboarding for various SAAS platforms",
@@ -1197,7 +1271,7 @@
             technologies: ["Automation", "SAAS"]
         },
         {
-            number: "03",
+            number: "07",
             title: "Render Farm Management",
             name: "Pattern",
             description: "Deployed a Keyshot render farm for 300% faster rendering performance",
@@ -1205,7 +1279,7 @@
             technologies: ["Keyshot", "Render Farm"]
         },
         {
-            number: "04",
+            number: "08",
             title: "Custom Computer Builds",
             name: "Pattern",
             description: "I build custom computers for clients like Pattern and friends",
@@ -1213,7 +1287,7 @@
             technologies: ["Hardware", "Custom Builds"]
         },
         {
-            number: "05",
+            number: "09",
             title: "Eagle Scout Project",
             name: "BSOA",
             description: "Constructed an ATV bridge at Starvation Creek for the Utah Division of Wildlife Resources",
@@ -1221,7 +1295,7 @@
             technologies: ["Project Management", "Construction"]
         },
         {
-            number: "06",
+            number: "10",
             title: "This Website",
             name: "Personal",
             description: "Built this website with Svelte and Tailwind CSS, hosted on Github Pages",
@@ -1291,11 +1365,10 @@
             return;
         }
         
-        // Desktop behavior
+        // Desktop behavior - update immediately
         activeExperienceItem = type;
         currentExperienceText = type;
         experienceTextVisible = true;
-        document.getElementById('experience')?.classList.add('has-detail-visible');
     }
     
     function hideExperienceText() {
@@ -1327,11 +1400,10 @@
             return;
         }
         
-        // Desktop behavior
+        // Desktop behavior - update immediately
         activeEducationItem = type;
         currentEducationText = type;
         educationTextVisible = true;
-        document.getElementById('education')?.classList.add('has-detail-visible');
     }
     
     function hideEducationText() {
