@@ -348,6 +348,32 @@
             </div>
         </div>
     </section>
+
+    <footer id="contact" class="footer">
+        <div class="content">
+            <div class="social-links">
+                <a href="https://github.com/eliasjohnson" target="_blank" rel="noopener noreferrer" class="social-link">
+                    <span class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    </span>
+                    <span class="social-text">GitHub</span>
+                </a>
+                <a href="https://linkedin.com/in/eliasjohnson211" target="_blank" rel="noopener noreferrer" class="social-link">
+                    <span class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </span>
+                    <span class="social-text">LinkedIn</span>
+                </a>
+                <a href="https://instagram.com/elias.hamke" target="_blank" rel="noopener noreferrer" class="social-link">
+                    <span class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </span>
+                    <span class="social-text">Instagram</span>
+                </a>
+            </div>
+            <p class="footer-text">© 2025 Elias Johnson. All rights reserved.</p>
+        </div>
+    </footer>
 </div>
 
 <style>
@@ -459,15 +485,15 @@
         -webkit-overflow-scrolling: touch;
     }
 
-    #home, #projects {
+    #home {
         align-items: center;
         justify-content: center;
         overflow-y: hidden;
     }
 
-    #experience, #education {
+    #experience, #education, #projects {
         display: flex;
-        align-items: center; /* Center by default */
+        align-items: center;
         justify-content: center;
         transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -587,14 +613,14 @@
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 2rem;
         margin-bottom: 2rem;
-        position: relative;
     }
 
     .experience-item, .education-item {
         padding: 1.5rem;
+        padding-right: 3.5rem;
         border: 1px solid #eee;
         border-radius: 4px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: all 0.3s ease;
         position: relative;
         backface-visibility: hidden;
         transform: translateZ(0);
@@ -603,16 +629,7 @@
         flex-direction: column;
         justify-content: flex-start;
         background-color: white;
-    }
-    
-    .experience-item::after, .education-item::after {
-        content: '';
-        position: absolute;
-        top: -15px;
-        left: -15px;
-        right: -15px;
-        bottom: -15px;
-        z-index: -1;
+        cursor: pointer;
     }
 
     .experience-item:hover, .education-item:hover {
@@ -633,291 +650,10 @@
     .experience-item p, .education-item p {
         margin-bottom: 0.5rem;
         color: #666;
-        transition: color 0.3s ease;
     }
 
     .experience-item p:last-child, .education-item p:last-child {
         margin-bottom: 0;
-    }
-
-    .item-container {
-        position: relative;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .carousel-container {
-        width: 100vw;
-        position: relative;
-        overflow: hidden;
-        padding: 2rem 0;
-        margin-left: calc(-50vw + 50%);
-        margin-right: calc(-50vw + 50%);
-    }
-    
-    .carousel-track {
-        display: flex;
-        gap: 2rem;
-        padding: 0 2rem;
-        width: max-content;
-        will-change: transform;
-        animation: scroll 40s linear infinite;
-    }
-    
-    .carousel-track:hover {
-        animation-play-state: paused;
-    }
-
-    @keyframes scroll {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(calc(-50% - 1rem)); /* Half width plus half gap */
-        }
-    }
-
-    .project-item {
-        flex: 0 0 min(calc((100vw - 8rem) / 3), 400px);
-        padding: 1.5rem;
-        border: 1px solid #eee;
-        border-radius: 8px;
-        background-color: white;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        position: relative;
-        cursor: pointer;
-    }
-
-    .project-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    }
-
-    .project-number {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        font-size: 2rem;
-        font-weight: 900;
-        color: #f0f0f0;
-    }
-
-    .project-item h3 {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-        padding-right: 3rem;
-        transition: color 0.3s ease;
-    }
-
-    .project-item:hover h3 {
-        color: olive;
-    }
-
-    .project-name {
-        font-family: "Inter Tight", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 900;
-        margin-bottom: 0.5rem;
-        font-style: italic;
-        color: #666;
-    }
-
-    .project-item p {
-        color: #666;
-        line-height: 1.4;
-    }
-
-    @media (max-width: 768px) {
-        .navbar {
-            padding: 1rem;
-        }
-        
-        .nav-links {
-            gap: 1rem;
-        }
-        
-        .section {
-            padding: 5rem 1rem 3rem;
-            min-height: auto;
-            height: auto;
-            overflow-y: visible;
-            align-items: flex-start; /* Reset alignment for mobile */
-        }
-
-        #home, #projects {
-            align-items: center; /* Keep these centered on mobile */
-            min-height: 100vh; /* Maintain full height for these sections */
-        }
-        
-        #experience, #education {
-            align-items: flex-start;
-            padding-top: 4rem; /* Reduced padding for mobile */
-            transition: none; /* Disable transitions on mobile */
-        }
-
-        #experience.has-detail-visible, #education.has-detail-visible {
-            padding-top: 4rem;
-        }
-
-        #experience .content, #education .content {
-            padding-bottom: 1rem;
-            margin-top: 0;
-            transform: none !important; /* Disable transform on mobile */
-            transition: none; /* Disable transitions on mobile */
-        }
-
-        .experience-items, .education-items {
-            margin-bottom: 1rem;
-            grid-template-columns: 1fr; /* Single column on mobile */
-        }
-
-        .item-container {
-            margin-bottom: 0.5rem;
-        }
-
-        .mobile-detail {
-            max-height: 0;
-            opacity: 0;
-            transition: max-height 0.3s ease, opacity 0.3s ease;
-            overflow: hidden;
-        }
-
-        .mobile-detail.visible {
-            max-height: 500px; /* Adjust based on content */
-            opacity: 1;
-        }
-
-        .experience-item.active, .education-item.active {
-            background-color: #f8f8f8;
-            border-bottom: 1px solid #eee;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 8vw, 3rem); /* Smaller title on mobile */
-            margin-bottom: 2rem;
-        }
-
-        .carousel-container {
-            margin-left: 0;
-            margin-right: 0;
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-        
-        .carousel-container::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .carousel-track {
-            gap: 1rem;
-            padding: 0 1rem;
-            animation: none; /* Disable animation on mobile */
-        }
-        
-        .project-item {
-            flex: 0 0 80vw;
-            min-width: 250px;
-            margin-right: 1rem;
-            scroll-snap-align: start;
-        }
-
-        .experience-item, .education-item {
-            padding: 1.5rem;
-            padding-right: 3rem;
-            background-color: white;
-            position: relative;
-            transition: background-color 0.3s ease;
-            border: none;
-            border-radius: 0;
-        }
-        
-        .experience-item::after, .education-item::after {
-            content: '+';
-            position: absolute;
-            right: 1.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.25rem;
-            color: #aaa;
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-        
-        .experience-item.active::after, .education-item.active::after {
-            content: '−';
-            color: #666;
-        }
-
-        .mobile-detail {
-            width: 100%;
-            padding: 0 1.5rem;
-            background-color: #fff;
-        }
-        
-        .mobile-detail ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .mobile-detail li {
-            margin-bottom: 1rem;
-            line-height: 1.6;
-            color: #555;
-            font-size: 0.95rem;
-            position: relative;
-            padding-left: 1.25rem;
-        }
-
-        .mobile-detail li:last-child {
-            margin-bottom: 0;
-        }
-        
-        .mobile-detail li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: olive;
-        }
-
-        .experience-detail, .education-detail {
-            display: none;
-        }
-    }
-
-    @media (min-width: 769px) {
-        .experience-detail, .education-detail {
-            position: relative;
-            height: auto;
-            min-height: 350px;
-        }
-        
-        #experience .content, #education .content {
-            padding-bottom: 2rem;
-        }
-        
-        .mobile-detail {
-            display: none !important;
-        }
-    }
-
-    @media (max-width: 320px) {
-        .header h1 {
-            font-size: 2.5rem;
-        }
-
-        .header h2 {
-            font-size: 1.2rem;
-        }
-        
-        .section-title {
-            font-size: 2rem;
-        }
     }
 
     .experience-detail, .education-detail {
@@ -936,16 +672,16 @@
         visibility: visible;
         transition: opacity 0.4s ease, visibility 0s;
     }
-    
+
     .experience-detail-content, .education-detail-content {
         padding: 1.5rem 0;
     }
-    
+
     .experience-detail ul, .education-detail ul {
         list-style-type: disc;
         padding-left: 1.5rem;
     }
-    
+
     .experience-detail li, .education-detail li {
         margin-bottom: 0.5rem;
         color: #555;
@@ -1021,6 +757,377 @@
             scroll-snap-align: start;
         }
     }
+
+    .footer {
+        padding: clamp(1rem, 4vh, 2rem) clamp(1rem, 4vw, 2rem); /* Responsive padding */
+        margin-top: min(10vh, 4rem); /* Viewport-relative margin */
+        background-color: #fff;
+        border-top: 1px solid #eee;
+        position: relative;
+        z-index: 10;
+        scroll-snap-align: start;
+    }
+
+    .footer .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .social-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: #666;
+        padding: 0.75rem 1.5rem;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        background-color: white;
+    }
+
+    .social-link:hover {
+        color: olive;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .social-icon {
+        display: flex;
+        align-items: center;
+    }
+
+    .social-text {
+        font-weight: 500;
+    }
+
+    .footer-text {
+        color: #888;
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+        .footer {
+            padding: 1.25rem 1rem;
+        }
+
+        .social-links {
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .social-link {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            flex: 0 1 auto; /* Allow links to shrink */
+            min-width: auto; /* Remove minimum width constraint */
+        }
+    }
+
+    #projects {
+        min-height: auto;
+        padding-bottom: min(20vh, 12rem); /* Use viewport-relative units with fallback */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #projects .content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        padding-top: 2rem;
+        margin-bottom: min(10vh, 4rem); /* Viewport-relative margin */
+    }
+
+    #projects .section-title {
+        align-self: flex-start;
+    }
+
+    /* Performance optimizations */
+    .carousel-track {
+        transform: translateZ(0); /* Hardware acceleration */
+        backface-visibility: hidden;
+        perspective: 1000;
+        will-change: transform;
+    }
+
+    .project-item {
+        transform: translateZ(0); /* Hardware acceleration */
+        backface-visibility: hidden;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+        .carousel-track {
+            animation: none;
+        }
+
+        .project-item {
+            transition: none;
+        }
+
+        .social-link {
+            transition: none;
+        }
+    }
+
+    /* Ensure text remains readable */
+    .project-item h3 {
+        font-size: clamp(1.25rem, 4vw, 1.5rem);
+        line-height: 1.3;
+    }
+
+    .project-item p {
+        font-size: clamp(0.9rem, 3vw, 1rem);
+        line-height: 1.5;
+    }
+
+    /* Optimize touch targets for mobile */
+    @media (hover: none) and (pointer: coarse) {
+        .social-link {
+            min-height: 44px; /* Minimum touch target size */
+            padding: 0.75rem 1.25rem;
+        }
+
+        .project-item {
+            min-height: 150px;
+        }
+    }
+
+    .carousel-container {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        padding: 2rem 0;
+        margin-bottom: min(10vh, 4rem);
+    }
+    
+    .carousel-track {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: calc(33.333% - 1.334rem);
+        gap: 2rem;
+        padding: 0 2rem;
+        transition: transform 0.5s ease;
+        will-change: transform;
+    }
+
+    .project-item {
+        padding: 2rem;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        background-color: white;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .project-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+
+    @media (max-width: 1200px) {
+        .carousel-track {
+            grid-auto-columns: calc(50% - 1rem);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .carousel-track {
+            grid-auto-columns: 85%;
+            gap: 1rem;
+            padding: 0 1rem;
+            scroll-snap-type: x mandatory;
+        }
+
+        .carousel-container {
+            margin: 1rem -1rem 2rem;
+            padding: 1rem 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .project-item {
+            scroll-snap-align: center;
+            padding: 1.5rem;
+        }
+
+        .experience-items, .education-items {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .item-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            transition: gap 0.3s ease;
+        }
+
+        .experience-item, .education-item {
+            border-radius: 4px;
+            margin: 0;
+            transition: all 0.3s ease;
+        }
+
+        .experience-item.active, .education-item.active {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom: none;
+        }
+
+        .mobile-detail {
+            display: block;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            border-top: none;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+            background-color: white;
+        }
+
+        .mobile-detail.visible {
+            max-height: none;
+            opacity: 1;
+            border-color: #eee;
+            padding: 1.5rem;
+        }
+
+        .mobile-detail ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-detail li {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #555;
+            font-size: 0.95rem;
+            position: relative;
+            padding-left: 1.25rem;
+        }
+
+        .mobile-detail li:last-child {
+            margin-bottom: 0;
+        }
+
+        .mobile-detail li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: olive;
+        }
+
+        .experience-detail, .education-detail {
+            display: none;
+        }
+
+        #experience .content, #education .content {
+            padding-bottom: 2rem;
+        }
+
+        #projects {
+            padding-bottom: 6rem;
+            min-height: auto;
+            height: auto;
+        }
+
+        #projects .content {
+            padding-top: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer {
+            padding: 1.25rem 1rem;
+            margin-top: 2rem;
+        }
+    }
+
+    @media (min-width: 769px) {
+        .experience-detail, .education-detail {
+            position: relative;
+            height: auto;
+            min-height: 350px;
+        }
+        
+        #experience .content, #education .content {
+            padding-bottom: 2rem;
+        }
+        
+        .mobile-detail {
+            display: none !important;
+        }
+    }
+
+    @media (max-width: 320px) {
+        .header h1 {
+            font-size: 2.5rem;
+        }
+
+        .header h2 {
+            font-size: 1.2rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .navbar {
+            padding: 1.25rem 1rem;
+        }
+
+        .nav-links {
+            gap: 1.25rem;
+        }
+
+        .nav-item {
+            font-size: 0.9rem;
+            padding: 0.5rem 0;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .navbar {
+            padding: 1rem 0.75rem;
+        }
+
+        .nav-links {
+            gap: 1rem;
+        }
+
+        .nav-item {
+            font-size: 0.85rem;
+        }
+    }
 </style>
 
 <script lang="ts">
@@ -1044,17 +1151,16 @@
         projects: false
     };
     
-    let carouselTrack: HTMLElement;
-    let currentSlide = 0;
-    let autoplayInterval: ReturnType<typeof setInterval>;
+    let isHovering = false;
+    let carouselTrack: HTMLElement | null = null;
+    let autoplayInterval: number | null = null;
+    let isScrolling: number;
     
     let activeExperienceItem = '';
     let activeEducationItem = '';
     
     let experienceDetailEl: HTMLElement;
     let educationDetailEl: HTMLElement;
-    
-    let isHovering = false;
     
     const projects = [
         {
@@ -1152,27 +1258,27 @@
             hideTimeout = null;
         }
         
-        activeExperienceItem = type;
-        
-        if (typeof window !== 'undefined' && window.innerWidth <= 768 && currentExperienceText === type && experienceTextVisible) {
-            experienceTextVisible = false;
-            activeExperienceItem = '';
-            document.getElementById('experience')?.classList.remove('has-detail-visible');
+        if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+            // Mobile behavior
+            if (currentExperienceText === type && experienceTextVisible) {
+                // If clicking the same item that's already open, close it
+                experienceTextVisible = false;
+                currentExperienceText = '';
+                activeExperienceItem = '';
+            } else {
+                // Close any other open item and open the clicked one
+                experienceTextVisible = true;
+                currentExperienceText = type;
+                activeExperienceItem = type;
+            }
             return;
         }
         
+        // Desktop behavior
+        activeExperienceItem = type;
         currentExperienceText = type;
         experienceTextVisible = true;
         document.getElementById('experience')?.classList.add('has-detail-visible');
-        
-        if (typeof window !== 'undefined' && window.innerWidth <= 768) {
-            setTimeout(() => {
-                const detailEl = document.querySelector(`.mobile-experience-${type}`);
-                if (detailEl) {
-                    detailEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }
-            }, 100);
-        }
     }
     
     function hideExperienceText() {
@@ -1188,27 +1294,27 @@
             hideEducationTimeout = null;
         }
         
-        activeEducationItem = type;
-        
-        if (typeof window !== 'undefined' && window.innerWidth <= 768 && currentEducationText === type && educationTextVisible) {
-            educationTextVisible = false;
-            activeEducationItem = '';
-            document.getElementById('education')?.classList.remove('has-detail-visible');
+        if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+            // Mobile behavior
+            if (currentEducationText === type && educationTextVisible) {
+                // If clicking the same item that's already open, close it
+                educationTextVisible = false;
+                currentEducationText = '';
+                activeEducationItem = '';
+            } else {
+                // Close any other open item and open the clicked one
+                educationTextVisible = true;
+                currentEducationText = type;
+                activeEducationItem = type;
+            }
             return;
         }
         
+        // Desktop behavior
+        activeEducationItem = type;
         currentEducationText = type;
         educationTextVisible = true;
         document.getElementById('education')?.classList.add('has-detail-visible');
-        
-        if (typeof window !== 'undefined' && window.innerWidth <= 768) {
-            setTimeout(() => {
-                const detailEl = document.querySelector(`.mobile-education-${type}`);
-                if (detailEl) {
-                    detailEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }
-            }, 100);
-        }
     }
     
     function hideEducationText() {
@@ -1220,10 +1326,42 @@
     
     function handleMouseEnter() {
         isHovering = true;
+        if (autoplayInterval) {
+            clearInterval(autoplayInterval);
+            autoplayInterval = null;
+        }
     }
 
     function handleMouseLeave() {
         isHovering = false;
+        if (window.innerWidth > 768) {
+            startAutoplay();
+        }
+    }
+
+    function startAutoplay() {
+        if (autoplayInterval) {
+            clearInterval(autoplayInterval);
+        }
+        autoplayInterval = setInterval(() => {
+            if (!isHovering && carouselTrack && window.innerWidth > 768) {
+                const container = carouselTrack.parentElement;
+                if (container) {
+                    const itemWidth = container.clientWidth * 0.33333 + 32;
+                    const maxScroll = container.scrollWidth - container.clientWidth;
+                    let newScrollLeft = container.scrollLeft + itemWidth;
+                    
+                    if (newScrollLeft > maxScroll) {
+                        newScrollLeft = 0;
+                    }
+                    
+                    container.scrollTo({
+                        left: newScrollLeft,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        }, 3000);
     }
     
     onMount(() => {
@@ -1404,6 +1542,45 @@
         });
         
         initializeSection();
+        
+        // Initialize autoplay for desktop
+        if (window.innerWidth > 768) {
+            startAutoplay();
+        }
+        
+        // Add touch handling for mobile carousel
+        if (carouselTrack && typeof window !== 'undefined') {
+            const container = carouselTrack.parentElement;
+            if (container) {
+                let isScrolling: number;
+                
+                container.addEventListener('scroll', () => {
+                    window.clearTimeout(isScrolling);
+                    isScrolling = window.setTimeout(() => {
+                        const scrollLeft = container.scrollLeft;
+                        const itemWidth = window.innerWidth <= 768 
+                            ? container.clientWidth * 0.85 + 16  // Mobile: 85% width + gap
+                            : window.innerWidth <= 1200
+                                ? container.clientWidth * 0.5 + 32  // Tablet: 50% width + gap
+                                : container.clientWidth * 0.33333 + 32;  // Desktop: 33.333% width + gap
+                        
+                        const nearestItem = Math.round(scrollLeft / itemWidth);
+                        container.scrollTo({
+                            left: nearestItem * itemWidth,
+                            behavior: 'smooth'
+                        });
+                    }, 150);
+                }, { passive: true });
+
+                // Add mouse wheel horizontal scrolling for desktop
+                container.addEventListener('wheel', (e: WheelEvent) => {
+                    if (window.innerWidth > 768) {
+                        e.preventDefault();
+                        container.scrollLeft += e.deltaY;
+                    }
+                }, { passive: false });
+            }
+        }
         
         return () => {
             window.removeEventListener('wheel', handleWheel);
