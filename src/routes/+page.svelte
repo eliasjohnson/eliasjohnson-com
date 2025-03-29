@@ -1068,17 +1068,34 @@
 
     @media (min-width: 769px) {
         .experience-detail, .education-detail {
-            position: relative;
+            position: absolute;
+            left: 0;
+            right: 0;
             height: auto;
             min-height: 350px;
+            pointer-events: none;
+            transform: translateY(2rem);
+            overflow: visible;
         }
         
         #experience .content, #education .content {
             padding-bottom: 2rem;
+            position: relative;
+            min-height: calc(500px + 4rem); /* Increased minimum height to accommodate more content */
+        }
+        
+        .experience-detail-content, .education-detail-content {
+            padding: 2rem 0;
+            height: auto;
+            min-height: 100%;
         }
         
         .mobile-detail {
             display: none !important;
+        }
+
+        .experience-detail.visible, .education-detail.visible {
+            pointer-events: auto;
         }
     }
 
