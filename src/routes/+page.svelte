@@ -1265,7 +1265,7 @@
             technologies: ["HTML", "CSS", "JavaScript"]
         },
         {
-            number: "03",
+            number: "04",
             title: "Book Database App",
             name: "Library Manager",
             description: "Dynamic book database application with search and filtering capabilities",
@@ -1273,7 +1273,7 @@
             technologies: ["JavaScript", "CSS", "HTML"]
         },
         {
-            number: "04",
+            number: "05",
             title: "Trivia Web App",
             name: "Interactive Quiz Game",
             description: "Dynamic trivia application with multiple categories and score tracking",
@@ -1281,7 +1281,7 @@
             technologies: ["JavaScript", "CSS", "API Integration"]
         },
         {
-            number: "05",
+            number: "06",
             title: "Business Website",
             name: "Provo School of The Arts",
             description: "Website via Squarespace & IT infrastructure setup for a small business",
@@ -1289,7 +1289,7 @@
             technologies: ["Squarespace", "IT Infrastructure"]
         },
         {
-            number: "06",
+            number: "07",
             title: "SAAS Onboarding Automations",
             name: "Pattern",
             description: "Automated employee onboarding for various SAAS platforms",
@@ -1297,7 +1297,7 @@
             technologies: ["Automation", "SAAS"]
         },
         {
-            number: "07",
+            number: "08",
             title: "Render Farm Management",
             name: "Pattern",
             description: "Deployed a Keyshot render farm for 300% faster rendering performance",
@@ -1305,7 +1305,7 @@
             technologies: ["Keyshot", "Render Farm"]
         },
         {
-            number: "08",
+            number: "09",
             title: "Custom Computer Builds",
             name: "Pattern",
             description: "I build custom computers for clients like Pattern and friends",
@@ -1313,7 +1313,7 @@
             technologies: ["Hardware", "Custom Builds"]
         },
         {
-            number: "09",
+            number: "10",
             title: "Eagle Scout Project",
             name: "BSOA",
             description: "Constructed an ATV bridge at Starvation Creek for the Utah Division of Wildlife Resources",
@@ -1321,7 +1321,7 @@
             technologies: ["Project Management", "Construction"]
         },
         {
-            number: "10",
+            number: "11",
             title: "This Website",
             name: "Personal",
             description: "Built this website with Svelte and Tailwind CSS, hosted on Github Pages",
