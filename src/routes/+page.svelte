@@ -41,7 +41,7 @@
                     <span class="animate-letter" role="button" tabindex="0" style="--delay: 0.65s; --direction: -100vw, 50vh;" on:mouseenter={(e) => debouncedReanimateElement(e.currentTarget)}>o</span>
                     <span class="animate-letter" role="button" tabindex="0" style="--delay: 0.7s; --direction: 100vw, -50vh;" on:mouseenter={(e) => debouncedReanimateElement(e.currentTarget)}>n</span>
                 </h1>
-                <h2 class="subtitle">Front End Web Developer</h2>
+                <h2 class="subtitle">Software & Web Developer</h2>
             </div>
         </div>
     </section>
@@ -105,19 +105,17 @@
                         class:active={activeExperienceItem === 'junior'}
                         on:mouseenter={() => showExperienceText('junior')}
                         on:mouseleave={hideExperienceText}
-                        on:click={() => showExperienceText('junior')}
-                        on:keydown={(e) => e.key === 'Enter' && showExperienceText('junior')}>
-                        <h3>Web Developer</h3>
-                        <p>Provo School of The Arts | Sep 2018 - Dec 2022</p>
+                        on:click={() => window.open('https://bookends.app', '_blank')}
+                        on:keydown={(e) => e.key === 'Enter' && window.open('https://bookends.app', '_blank')}>
+                        <h3>Software Engineer</h3>
+                        <p>Bookends | Jan 2024 - Present</p>
                         <p>Freelance position in Provo, UT</p>
                     </div>
                     <div class="mobile-detail mobile-experience-junior" class:visible={experienceTextVisible && currentExperienceText === 'junior'}>
                         <ul>
-                            <li>Designed and built the school's website from the ground up</li>
-                            <li>Worked closely with the owner to create an effective online presence</li>
-                            <li>Utilized Squarespace alongside custom code for optimal results</li>
-                            <li>Created a website that effectively communicated the school's offerings and vision</li>
-                            <li>Developed solutions targeting families and potential students</li>
+                            <li>Helping with the development of a new product</li>
+                            <li>Currently building an Epub reader and converter for IOS via Swift</li>
+                            <li>Have learned a lot about Apple's ecosystem and development tools</li>
                         </ul>
                     </div>
                 </div>
@@ -147,11 +145,9 @@
                 {:else if currentExperienceText === 'junior'}
                     <div class="experience-detail-content" in:fade={{duration: 200}} out:fade={{duration: 100}}>
                         <ul>
-                            <li>Designed and built the school's website from the ground up</li>
-                            <li>Worked closely with the owner to create an effective online presence</li>
-                            <li>Utilized Squarespace alongside custom code for optimal results</li>
-                            <li>Created a website that effectively communicated the school's offerings and vision</li>
-                            <li>Developed solutions targeting families and potential students</li>
+                            <li>Helping with the development of a new product</li>
+                            <li>Currently building an Epub reader and converter for IOS via Swift</li>
+                            <li>Have learned a lot about Apple's ecosystem and development tools</li>
                         </ul>
                     </div>
                 {/if}
@@ -315,6 +311,7 @@
                         class="project-item"
                         role="link"
                         tabindex="0"
+                        data-project={project.title.toLowerCase()}
                         on:click={() => window.open(project.link, '_blank')}
                         on:keydown={(e) => e.key === 'Enter' && window.open(project.link, '_blank')}
                     >
@@ -333,6 +330,7 @@
                         class="project-item"
                         role="link"
                         tabindex="0"
+                        data-project={project.title.toLowerCase()}
                         on:click={() => window.open(project.link, '_blank')}
                         on:keydown={(e) => e.key === 'Enter' && window.open(project.link, '_blank')}
                     >
@@ -858,6 +856,12 @@
         .project-item {
             transition: none;
         }
+
+        .project-item[data-project="bookends"]::before,
+        .project-item[data-project="bookends"]::after {
+            animation: none;
+            display: none;
+        }
     }
 
     /* Ensure text remains readable */
@@ -906,6 +910,38 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .project-item[data-project="bookends"]::before,
+    .project-item[data-project="bookends"]::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 60%;
+        background: linear-gradient(0deg, rgba(255,88,0,0.15) 0%, rgba(255,144,0,0.1) 50%, rgba(255,199,0,0) 100%);
+        animation: flame 2s infinite;
+        transform-origin: center bottom;
+        pointer-events: none;
+    }
+
+    .project-item[data-project="bookends"]::after {
+        animation-delay: -1s;
+        filter: blur(2px);
+    }
+
+    @keyframes flame {
+        0%, 100% {
+            transform: scaleY(1) translateY(0);
+            opacity: 1;
+        }
+        50% {
+            transform: scaleY(1.1) translateY(-10px);
+            opacity: 0.8;
+        }
     }
 
     .project-item:hover {
@@ -1214,8 +1250,16 @@
         },
         {
             number: "02",
-            title: "Student Registration",
-            name: "Academic Portal",
+            title: "Bookends",
+            name: "Reading habit builder",
+            description: "I'm building out features and will soon be building a proprietary Epub reader into the app",
+            link: "https://bookends.app",
+            technologies: ["Swift", "IOS", "AWS Lambda", "DynamoDB"]
+        },
+        {
+            number: "03",
+            title: "Student Registration App",
+            name: "Academic Project",
             description: "Interactive student registration page with form validation and responsive design",
             link: "https://project5eliasjohnson.netlify.app/",
             technologies: ["HTML", "CSS", "JavaScript"]
@@ -1226,7 +1270,7 @@
             name: "Library Manager",
             description: "Dynamic book database application with search and filtering capabilities",
             link: "https://project4bookapp.netlify.app/",
-            technologies: ["JavaScript", "CSS", "Web Storage API"]
+            technologies: ["JavaScript", "CSS", "HTML"]
         },
         {
             number: "04",
