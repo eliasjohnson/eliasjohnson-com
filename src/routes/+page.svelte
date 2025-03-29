@@ -452,19 +452,40 @@
         min-height: 100vh;
         width: 100%;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         padding: 6rem 2rem 4rem;
         scroll-snap-align: start;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
-    #experience, #education, #projects {
-        display: flex;
+    #home, #projects {
         align-items: center;
+        justify-content: center;
+        overflow-y: hidden;
+    }
+
+    #experience, #education {
+        display: flex;
+        align-items: center; /* Center by default */
+        justify-content: center;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #experience.has-detail-visible, #education.has-detail-visible {
+        align-items: flex-start; /* Move content up when detail is visible */
+        padding-top: 6rem; /* Add some space at the top when shifted up */
     }
 
     #experience .content, #education .content {
-        padding-bottom: 350px; /* Account for the hover detail content height */
-        margin-top: 20%; /* Move content up to visually center it, accounting for the bottom padding */
+        padding-bottom: 350px;
+        margin-top: 0;
+        padding-top: 2rem;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #experience.has-detail-visible .content, #education.has-detail-visible .content {
+        transform: translateY(-20vh); /* Move content up when detail is visible */
     }
 
     .content {
@@ -719,11 +740,63 @@
         
         .section {
             padding: 5rem 1rem 3rem;
+            min-height: auto;
+            height: auto;
+            overflow-y: visible;
+            align-items: flex-start; /* Reset alignment for mobile */
+        }
+
+        #home, #projects {
+            align-items: center; /* Keep these centered on mobile */
+            min-height: 100vh; /* Maintain full height for these sections */
         }
         
+        #experience, #education {
+            align-items: flex-start;
+            padding-top: 4rem; /* Reduced padding for mobile */
+            transition: none; /* Disable transitions on mobile */
+        }
+
+        #experience.has-detail-visible, #education.has-detail-visible {
+            padding-top: 4rem;
+        }
+
+        #experience .content, #education .content {
+            padding-bottom: 1rem;
+            margin-top: 0;
+            transform: none !important; /* Disable transform on mobile */
+            transition: none; /* Disable transitions on mobile */
+        }
+
         .experience-items, .education-items {
-            grid-template-columns: 1fr;
-            gap: 1rem;
+            margin-bottom: 1rem;
+            grid-template-columns: 1fr; /* Single column on mobile */
+        }
+
+        .item-container {
+            margin-bottom: 0.5rem;
+        }
+
+        .mobile-detail {
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            overflow: hidden;
+        }
+
+        .mobile-detail.visible {
+            max-height: 500px; /* Adjust based on content */
+            opacity: 1;
+        }
+
+        .experience-item.active, .education-item.active {
+            background-color: #f8f8f8;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 8vw, 3rem); /* Smaller title on mobile */
+            margin-bottom: 2rem;
         }
 
         .carousel-container {
@@ -753,21 +826,7 @@
             margin-right: 1rem;
             scroll-snap-align: start;
         }
-        
-        .item-container {
-            margin-bottom: 1rem;
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid #eee;
-            transition: box-shadow 0.3s ease;
-        }
-        
-        .item-container:has(.active) {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            border-color: #ddd;
-        }
-        
+
         .experience-item, .education-item {
             padding: 1.5rem;
             padding-right: 3rem;
@@ -793,16 +852,10 @@
             content: '−';
             color: #666;
         }
-        
-        .experience-item.active, .education-item.active {
-            background-color: #fff;
-            border-bottom: 1px solid #eee;
-        }
-        
+
         .mobile-detail {
-            display: none;
             width: 100%;
-            padding: 1.5rem;
+            padding: 0 1.5rem;
             background-color: #fff;
         }
         
@@ -831,17 +884,7 @@
             left: 0;
             color: olive;
         }
-        
-        .mobile-detail.visible {
-            display: block;
-            animation: fadeIn 0.3s ease forwards;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
+
         .experience-detail, .education-detail {
             display: none;
         }
@@ -849,17 +892,17 @@
 
     @media (min-width: 769px) {
         .experience-detail, .education-detail {
-            display: block;
-            height: 350px;
+            position: relative;
+            height: auto;
+            min-height: 350px;
+        }
+        
+        #experience .content, #education .content {
+            padding-bottom: 2rem;
         }
         
         .mobile-detail {
             display: none !important;
-        }
-        
-        #experience .content, #education .content {
-            padding-bottom: 350px;
-            margin-top: 20%;
         }
     }
 
@@ -1114,11 +1157,13 @@
         if (typeof window !== 'undefined' && window.innerWidth <= 768 && currentExperienceText === type && experienceTextVisible) {
             experienceTextVisible = false;
             activeExperienceItem = '';
+            document.getElementById('experience')?.classList.remove('has-detail-visible');
             return;
         }
         
         currentExperienceText = type;
         experienceTextVisible = true;
+        document.getElementById('experience')?.classList.add('has-detail-visible');
         
         if (typeof window !== 'undefined' && window.innerWidth <= 768) {
             setTimeout(() => {
@@ -1134,6 +1179,7 @@
         if (typeof window !== 'undefined' && window.innerWidth <= 768) return;
         experienceTextVisible = false;
         activeExperienceItem = '';
+        document.getElementById('experience')?.classList.remove('has-detail-visible');
     }
     
     function showEducationText(type: string) {
@@ -1147,11 +1193,13 @@
         if (typeof window !== 'undefined' && window.innerWidth <= 768 && currentEducationText === type && educationTextVisible) {
             educationTextVisible = false;
             activeEducationItem = '';
+            document.getElementById('education')?.classList.remove('has-detail-visible');
             return;
         }
         
         currentEducationText = type;
         educationTextVisible = true;
+        document.getElementById('education')?.classList.add('has-detail-visible');
         
         if (typeof window !== 'undefined' && window.innerWidth <= 768) {
             setTimeout(() => {
@@ -1167,6 +1215,7 @@
         if (typeof window !== 'undefined' && window.innerWidth <= 768) return;
         educationTextVisible = false;
         activeEducationItem = '';
+        document.getElementById('education')?.classList.remove('has-detail-visible');
     }
     
     function handleMouseEnter() {
