@@ -51,6 +51,28 @@
             <h1 class="section-title" bind:this={experienceTitleEl}><span class="title-text scale-reveal" class:visible={sectionVisible.experience}>Experience</span><span class="comma">,</span></h1>
             <div class="experience-items">
                 <div class="item-container">
+                    <div class="experience-item"
+                        role="button"
+                        tabindex="0"
+                        class:active={activeExperienceItem === 'junior'}
+                        on:mouseenter={() => showExperienceText('junior')}
+                        on:mouseleave={hideExperienceText}
+                        on:click={() => window.open('https://bookends.app', '_blank')}
+                        on:keydown={(e) => e.key === 'Enter' && window.open('https://bookends.app', '_blank')}>
+                        <h3>Software Engineer</h3>
+                        <p>Bookends | Jan 2024 - Present</p>
+                        <p>Freelance position in Provo, UT</p>
+                    </div>
+                    <div class="mobile-detail mobile-experience-junior" class:visible={experienceTextVisible && currentExperienceText === 'junior'}>
+                        <ul>
+                            <li>Helping with the development of a new product</li>
+                            <li>Currently building an Epub reader and converter for IOS via Swift</li>
+                            <li>Have learned a lot about Apple's ecosystem and development tools</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="item-container">
                     <div class="experience-item" 
                         role="button"
                         tabindex="0"
@@ -97,33 +119,19 @@
                         </ul>
                     </div>
                 </div>
-                
-                <div class="item-container">
-                    <div class="experience-item"
-                        role="button"
-                        tabindex="0"
-                        class:active={activeExperienceItem === 'junior'}
-                        on:mouseenter={() => showExperienceText('junior')}
-                        on:mouseleave={hideExperienceText}
-                        on:click={() => window.open('https://bookends.app', '_blank')}
-                        on:keydown={(e) => e.key === 'Enter' && window.open('https://bookends.app', '_blank')}>
-                        <h3>Software Engineer</h3>
-                        <p>Bookends | Jan 2024 - Present</p>
-                        <p>Freelance position in Provo, UT</p>
-                    </div>
-                    <div class="mobile-detail mobile-experience-junior" class:visible={experienceTextVisible && currentExperienceText === 'junior'}>
+            </div>
+            
+            <div class="experience-detail" class:visible={experienceTextVisible} bind:this={experienceDetailEl}>
+                {#if currentExperienceText === 'junior'}
+                    <div class="experience-detail-content">
                         <ul>
                             <li>Helping with the development of a new product</li>
                             <li>Currently building an Epub reader and converter for IOS via Swift</li>
                             <li>Have learned a lot about Apple's ecosystem and development tools</li>
                         </ul>
                     </div>
-                </div>
-            </div>
-            
-            <div class="experience-detail" class:visible={experienceTextVisible} bind:this={experienceDetailEl}>
-                {#if currentExperienceText === 'senior'}
-                    <div class="experience-detail-content" in:fade={{duration: 200}} out:fade={{duration: 100}}>
+                {:else if currentExperienceText === 'senior'}
+                    <div class="experience-detail-content">
                         <ul>
                             <li>Delivered top-tier technical support, ranking as highest-performing ticket resolver for four consecutive quarters</li>
                             <li>Managed IT infrastructure and set up render farms, resulting in 4x faster render speeds</li>
@@ -133,21 +141,13 @@
                         </ul>
                     </div>
                 {:else if currentExperienceText === 'web'}
-                    <div class="experience-detail-content" in:fade={{duration: 200}} out:fade={{duration: 100}}>
+                    <div class="experience-detail-content">
                         <ul>
                             <li>Provided comprehensive technical support to small and medium-sized businesses</li>
                             <li>Consistently ranked in top 5% for ticket resolutions and customer satisfaction</li>
                             <li>Effectively communicated with clients of all age groups and technical backgrounds</li>
                             <li>Leveraged expertise in Microsoft products to resolve complex technical issues</li>
                             <li>Collaborated with internal teams to ensure client satisfaction</li>
-                        </ul>
-                    </div>
-                {:else if currentExperienceText === 'junior'}
-                    <div class="experience-detail-content" in:fade={{duration: 200}} out:fade={{duration: 100}}>
-                        <ul>
-                            <li>Helping with the development of a new product</li>
-                            <li>Currently building an Epub reader and converter for IOS via Swift</li>
-                            <li>Have learned a lot about Apple's ecosystem and development tools</li>
                         </ul>
                     </div>
                 {/if}
@@ -247,7 +247,7 @@
             
             <div class="education-detail" class:visible={educationTextVisible} bind:this={educationDetailEl}>
                 {#if currentEducationText === 'bs'}
-                    <div class="education-detail-content" in:fade={{duration: 200}} out:fade={{duration: 100}}>
+                    <div class="education-detail-content">
                         <ul>
                             <li>Database Theory - MySQL</li>
                             <li>Data Science; Big Data Analytics - Python & R</li>
@@ -265,7 +265,7 @@
                         </ul>
                     </div>
                 {:else if currentEducationText === 'cs'}
-                    <div class="education-detail-content" in:fade={{duration: 200}} out:fade={{duration: 100}}>
+                    <div class="education-detail-content">
                         <ul>
                             <li>Object Oriented Programming - Python</li>
                             <li>Data Structures & Algorithms - Python</li>
@@ -277,7 +277,7 @@
                         </ul>
                     </div>
                 {:else if currentEducationText === 'web'}
-                    <div class="education-detail-content" in:fade={{duration: 200}} out:fade={{duration: 100}}>
+                    <div class="education-detail-content">
                         <ul>
                             <li>Github & Git</li>
                             <li>HTML & CSS</li>
@@ -297,51 +297,170 @@
     <section id="projects" class="section">
         <div class="content">
             <h1 class="section-title" bind:this={projectsTitleEl}><span class="title-text scale-reveal" class:visible={sectionVisible.projects}>Projects</span><span class="comma">,</span></h1>
-            <div class="carousel-container">
-                <div 
-                    class="carousel-track" 
-                    bind:this={carouselTrack}
-                    role="presentation"
-                    on:mouseenter={handleMouseEnter}
-                    on:mouseleave={handleMouseLeave}
-                >
-                    <!-- First set of items -->
-                    {#each projects as project}
-                    <div 
-                        class="project-item"
-                        role="link"
-                        tabindex="0"
-                        data-project={project.title.toLowerCase()}
-                        on:click={() => window.open(project.link, '_blank')}
-                        on:keydown={(e) => e.key === 'Enter' && window.open(project.link, '_blank')}
-                    >
-                        <div class="project-number">{project.number}</div>
-                        <h3>{project.title}</h3>
-                        {#if project.name}
-                        <p class="project-name">{project.name}</p>
-                        {/if}
-                        <p>{project.description}</p>
-                    </div>
-                    {/each}
-                    
-                    <!-- Duplicate set for seamless loop -->
-                    {#each projects as project}
-                    <div 
-                        class="project-item"
-                        role="link"
-                        tabindex="0"
-                        data-project={project.title.toLowerCase()}
-                        on:click={() => window.open(project.link, '_blank')}
-                        on:keydown={(e) => e.key === 'Enter' && window.open(project.link, '_blank')}
-                    >
-                        <div class="project-number">{project.number}</div>
-                        <h3>{project.title}</h3>
-                        {#if project.name}
-                        <p class="project-name">{project.name}</p>
-                        {/if}
-                        <p>{project.description}</p>
-                    </div>
-                    {/each}
+            <div class="bento-grid">
+                <!-- Row 1: Bookends (large) + First Website + Student Registration -->
+                <div class="bento-item large" data-project="bookends">
+                    <a href="https://bookends.app" target="_blank" rel="noopener noreferrer" class="bento-link">
+                        <div class="bento-content">
+                            <div class="project-number">02</div>
+                            <h3>Bookends</h3>
+                            <p class="project-name">Reading habit builder</p>
+                            <p class="project-description">I'm building out features and will soon be building a proprietary Epub reader into the app</p>
+                            <div class="project-technologies">
+                                <span class="tech-tag">Swift</span>
+                                <span class="tech-tag">iOS</span>
+                                <span class="tech-tag">AWS Lambda</span>
+                                <span class="tech-tag">DynamoDB</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="bento-item small" data-project="first-website">
+                    <a href="https://abouteliasjohnsoncss.netlify.app/" target="_blank" rel="noopener noreferrer" class="bento-link">
+                        <div class="bento-content">
+                            <div class="project-number">01</div>
+                            <h3>First Website</h3>
+                            <p class="project-name">About Elias Johnson</p>
+                            <div class="project-technologies">
+                                <span class="tech-tag">HTML</span>
+                                <span class="tech-tag">CSS</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="bento-item small" data-project="student-reg">
+                    <a href="https://project5eliasjohnson.netlify.app/" target="_blank" rel="noopener noreferrer" class="bento-link">
+                        <div class="bento-content">
+                            <div class="project-number">03</div>
+                            <h3>Student Registration</h3>
+                            <p class="project-name">Academic Project</p>
+                            <div class="project-technologies">
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">CSS</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Row 2: Book Database + Trivia App -->
+                <div class="bento-item small" data-project="book-db">
+                    <a href="https://project4bookapp.netlify.app/" target="_blank" rel="noopener noreferrer" class="bento-link">
+                        <div class="bento-content">
+                            <div class="project-number">04</div>
+                            <h3>Book Database</h3>
+                            <p class="project-name">Library Manager</p>
+                            <div class="project-technologies">
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">API</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="bento-item small" data-project="trivia">
+                    <a href="https://eliasjohnsonproject3trivia.netlify.app/" target="_blank" rel="noopener noreferrer" class="bento-link">
+                        <div class="bento-content">
+                            <div class="project-number">05</div>
+                            <h3>Trivia App</h3>
+                            <p class="project-name">Interactive Quiz</p>
+                            <div class="project-technologies">
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">API</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Row 3: This Website (medium) + SAAS + Render Farm -->
+                <div class="bento-item medium" data-project="this-website">
+                    <span class="bento-link">
+                        <div class="bento-content">
+                            <div class="project-number">11</div>
+                            <h3>This Website</h3>
+                            <p class="project-name">Personal</p>
+                            <p class="project-description">Built with Svelte and modern web technologies</p>
+                            <div class="project-technologies">
+                                <span class="tech-tag">Svelte</span>
+                                <span class="tech-tag">TypeScript</span>
+                                <span class="tech-tag">GitHub Pages</span>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+
+                <div class="bento-item small" data-project="saas">
+                    <span class="bento-link">
+                        <div class="bento-content">
+                            <div class="project-number">07</div>
+                            <h3>SAAS Automations</h3>
+                            <p class="project-name">Pattern</p>
+                            <div class="project-technologies">
+                                <span class="tech-tag">Automation</span>
+                                <span class="tech-tag">Python</span>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+
+                <div class="bento-item small" data-project="render-farm">
+                    <span class="bento-link">
+                        <div class="bento-content">
+                            <div class="project-number">08</div>
+                            <h3>Render Farm</h3>
+                            <p class="project-name">Pattern</p>
+                            <div class="project-technologies">
+                                <span class="tech-tag">Keyshot</span>
+                                <span class="tech-tag">Hardware</span>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+
+                <!-- Row 4: Custom Builds + Provo Arts + Eagle Scout (spans 2) -->
+                <div class="bento-item small" data-project="custom-builds">
+                    <span class="bento-link">
+                        <div class="bento-content">
+                            <div class="project-number">09</div>
+                            <h3>Custom Builds</h3>
+                            <p class="project-name">Pattern</p>
+                            <div class="project-technologies">
+                                <span class="tech-tag">Hardware</span>
+                                <span class="tech-tag">Custom</span>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+
+                <div class="bento-item small" data-project="provo-arts">
+                    <a href="https://provoschoolofthearts.com/" target="_blank" rel="noopener noreferrer" class="bento-link">
+                        <div class="bento-content">
+                            <div class="project-number">06</div>
+                            <h3>Provo Arts</h3>
+                            <p class="project-name">Business Website</p>
+                            <div class="project-technologies">
+                                <span class="tech-tag">Squarespace</span>
+                                <span class="tech-tag">IT Setup</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="bento-item medium" data-project="eagle-scout">
+                    <span class="bento-link">
+                        <div class="bento-content">
+                            <div class="project-number">10</div>
+                            <h3>Eagle Scout Project</h3>
+                            <p class="project-name">BSOA</p>
+                            <p class="project-description">Constructed an ATV bridge at Starvation Creek for the Utah Division of Wildlife Resources</p>
+                            <div class="project-technologies">
+                                <span class="tech-tag">Leadership</span>
+                                <span class="tech-tag">Construction</span>
+                                <span class="tech-tag">Project Management</span>
+                            </div>
+                        </div>
+                    </span>
                 </div>
             </div>
         </div>
@@ -374,15 +493,26 @@
         box-sizing: border-box;
     }
 
+    :global(html) {
+        scroll-behavior: smooth;
+        overflow-y: scroll;
+    }
+
     :global(html), :global(body) {
         overscroll-behavior: none; /* Prevent browser bounce effects */
         scroll-behavior: smooth;
+        height: 100%;
     }
 
     :global(body) {
-        overflow-y: scroll;
+        overflow-y: auto;
         background-color: #fff;
         color: #222;
+        scroll-snap-type: y proximity;
+    }
+
+    :global(#svelte) {
+        height: 100%;
     }
 
     .container {
@@ -390,6 +520,7 @@
         max-width: 100%;
         margin: 0 auto;
         position: relative;
+        height: 100%;
     }
     
     .navbar {
@@ -464,12 +595,11 @@
     }
 
     .section {
-        min-height: 100vh;
+        height: 100vh;
         width: 100%;
         display: flex;
         align-items: flex-start;
         padding: 6rem 2rem 4rem;
-        scroll-snap-align: start;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
     }
@@ -478,13 +608,15 @@
         align-items: center;
         justify-content: center;
         overflow-y: hidden;
+        scroll-snap-align: start;
     }
 
-    #experience, #education, #projects {
+    #experience, #education {
         display: flex;
         align-items: center;
         justify-content: center;
         transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        scroll-snap-align: start;
     }
 
     #experience .content, #education .content {
@@ -492,6 +624,33 @@
         margin-top: 0;
         padding-top: 2rem;
         transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #projects {
+        min-height: auto;
+        height: auto;
+        padding: 6rem 1rem 2rem;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        scroll-snap-align: none;
+    }
+
+    #projects .content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        padding-top: 2rem;
+        height: auto;
+    }
+
+    .footer {
+        padding: 4rem 2rem;
+        background-color: #fff;
+        position: relative;
+        z-index: 10;
+        scroll-snap-align: none;
     }
 
     .content {
@@ -595,6 +754,10 @@
         margin-bottom: 2rem;
     }
 
+    .item-container {
+        position: relative;
+    }
+
     .experience-item, .education-item {
         padding: 1.5rem;
         padding-right: 3.5rem;
@@ -640,7 +803,7 @@
         width: 100%;
         height: 350px;
         overflow: hidden;
-        transition: opacity 0.4s ease, visibility 0s 0.4s;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
         opacity: 0;
         border-top: 1px solid #eee;
         margin-top: 1rem;
@@ -650,7 +813,7 @@
     .experience-detail.visible, .education-detail.visible {
         opacity: 1;
         visibility: visible;
-        transition: opacity 0.4s ease, visibility 0s;
+        transition: opacity 0.3s ease, visibility 0s ease;
     }
 
     .experience-detail-content, .education-detail-content {
@@ -681,68 +844,8 @@
         opacity: 1;
     }
 
-    .education-items {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .education-item {
-        padding: 1.5rem;
-        border: 1px solid #eee;
-        border-radius: 4px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .education-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    }
-
-    .education-item:hover h3 {
-        color: olive;
-    }
-
-    .education-item h3 {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-        transition: color 0.3s ease;
-    }
-
-    .education-item p {
-        margin-bottom: 0.5rem;
-        color: #666;
-    }
-
-    .item-container {
-        position: relative;
-    }
-
     .mobile-detail {
         display: none;
-    }
-
-    :global(html) {
-        scroll-behavior: smooth;
-        @media (min-width: 769px) {
-            scroll-snap-type: y mandatory;
-            overflow-y: scroll;
-        }
-    }
-
-    :global(section) {
-        min-height: 100vh;
-        @media (min-width: 769px) {
-            scroll-snap-align: start;
-        }
-    }
-
-    .footer {
-        padding: 4rem 2rem;
-        background-color: #fff;
-        position: relative;
-        z-index: 10;
     }
 
     .footer-content {
@@ -813,265 +916,240 @@
         }
     }
 
-    #projects {
-        min-height: auto;
-        padding: 6rem 2rem 2rem;
-        display: flex;
-        align-items: flex-start;
-        justify-content: flex-start;
-    }
-
-    #projects .content {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-        padding-top: 2rem;
-    }
-
-    #projects .section-title {
-        align-self: flex-start;
-    }
-
-    /* Performance optimizations */
-    .carousel-track {
-        transform: translateZ(0); /* Hardware acceleration */
-        backface-visibility: hidden;
-        perspective: 1000;
-        will-change: transform;
-    }
-
-    .project-item {
-        transform: translateZ(0); /* Hardware acceleration */
-        backface-visibility: hidden;
-        -webkit-font-smoothing: antialiased;
-    }
-
-    /* Reduce motion for users who prefer it */
-    @media (prefers-reduced-motion: reduce) {
-        .carousel-track {
-            animation: none;
-        }
-
-        .project-item {
-            transition: none;
-        }
-
-        .project-item[data-project="bookends"]::before,
-        .project-item[data-project="bookends"]::after {
-            animation: none;
-            display: none;
-        }
-    }
-
-    /* Ensure text remains readable */
-    .project-item h3 {
-        font-size: clamp(1.25rem, 4vw, 1.5rem);
-        line-height: 1.3;
-    }
-
-    .project-item p {
-        font-size: clamp(0.9rem, 3vw, 1rem);
-        line-height: 1.5;
-    }
-
-    /* Optimize touch targets for mobile */
-    @media (hover: none) and (pointer: coarse) {
-        .project-item {
-            min-height: 150px;
-        }
-    }
-
-    .carousel-container {
-        width: 100%;
-        position: relative;
-        overflow: hidden;
-        padding: 2rem 0;
-        margin-bottom: 2rem;
-    }
-    
-    .carousel-track {
+    .bento-grid {
         display: grid;
-        grid-auto-flow: column;
-        grid-auto-columns: calc(33.333% - 1.334rem);
-        gap: 2rem;
-        padding: 0 2rem;
-        transition: transform 0.5s ease;
-        will-change: transform;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto auto auto auto;
+        gap: 1rem;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto 4rem;
     }
 
-    .project-item {
-        padding: 2rem;
-        border: 1px solid #eee;
-        border-radius: 4px;
-        background-color: white;
+    .bento-item {
+        position: relative;
+        border: 1px solid #2d4a2d;
+        border-radius: 8px;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        cursor: pointer;
+        overflow: hidden;
+        color: white;
+        min-height: 180px;
+    }
+
+    .bento-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .bento-item.large {
+        grid-column: span 2;
+        grid-row: span 2;
+        background: linear-gradient(135deg, #1e3a1e 0%, #2d4a2d 100%);
+    }
+
+    .bento-item.medium {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+
+    .bento-item.small {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    /* Individual project backgrounds */
+    .bento-item[data-project="bookends"] {
+        background: linear-gradient(135deg, #1e3a1e 0%, #2d4a2d 100%);
+        border: 2px solid #4a6741;
+    }
+
+    .bento-item[data-project="first-website"] {
+        background: linear-gradient(135deg, #2d4a2d 0%, #3a5a3a 100%);
+    }
+
+    .bento-item[data-project="this-website"] {
+        background: linear-gradient(135deg, #3a5a3a 0%, #4a6741 100%);
+    }
+
+    .bento-item[data-project="student-reg"] {
+        background: linear-gradient(135deg, #4a6741 0%, #5a7a52 100%);
+    }
+
+    .bento-item[data-project="book-db"] {
+        background: linear-gradient(135deg, #2f5233 0%, #3f6242 100%);
+    }
+
+    .bento-item[data-project="trivia"] {
+        background: linear-gradient(135deg, #3f6242 0%, #4f7252 100%);
+    }
+
+    .bento-item[data-project="provo-arts"] {
+        background: linear-gradient(135deg, #2a4f2e 0%, #3a5f3e 100%);
+    }
+
+    .bento-item[data-project="saas"] {
+        background: linear-gradient(135deg, #4f7252 0%, #5f8262 100%);
+    }
+
+    .bento-item[data-project="render-farm"] {
+        background: linear-gradient(135deg, #3a5f3e 0%, #4a6f4e 100%);
+    }
+
+    .bento-item[data-project="custom-builds"] {
+        background: linear-gradient(135deg, #5f8262 0%, #6f9272 100%);
+    }
+
+    .bento-item[data-project="eagle-scout"] {
+        background: linear-gradient(135deg, #4a6f4e 0%, #5a7f5e 100%);
+    }
+
+    .bento-link {
+        text-decoration: none;
+        color: #222;
+        display: block;
+        height: 100%;
+        width: 100%;
+        transition: color 0.3s ease;
+    }
+
+    .bento-link:hover {
+        color: #222;
+    }
+
+    .bento-content {
+        padding: 1.25rem;
         height: 100%;
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         position: relative;
-        overflow: hidden;
     }
 
-    .project-item[data-project="bookends"]::before,
-    .project-item[data-project="bookends"]::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 60%;
-        background: linear-gradient(0deg, rgba(255,88,0,0.15) 0%, rgba(255,144,0,0.1) 50%, rgba(255,199,0,0) 100%);
-        animation: flame 2s infinite;
-        transform-origin: center bottom;
-        pointer-events: none;
+    .bento-item .project-number {
+        font-family: "Inter Tight", sans-serif;
+        font-weight: 700;
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 0.5rem;
     }
 
-    .project-item[data-project="bookends"]::after {
-        animation-delay: -1s;
-        filter: blur(2px);
+    .bento-item h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        line-height: 1.3;
+        color: #ffffff;
     }
 
-    @keyframes flame {
-        0%, 100% {
-            transform: scaleY(1) translateY(0);
-            opacity: 1;
-        }
-        50% {
-            transform: scaleY(1.1) translateY(-10px);
-            opacity: 0.8;
-        }
+    .bento-item .project-name {
+        font-style: italic;
+        font-weight: 500;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 0.5rem;
     }
 
-    .project-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    .bento-item .project-description {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.4;
+        margin-bottom: 1rem;
+        flex-grow: 1;
     }
 
-    @media (max-width: 1200px) {
-        .carousel-track {
-            grid-auto-columns: calc(50% - 1rem);
-        }
+    .bento-item.large .project-description {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .bento-item .project-technologies {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.375rem;
+        margin-top: auto;
+    }
+
+    .bento-item .tech-tag {
+        background-color: rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+        padding: 0.125rem 0.5rem;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        white-space: nowrap;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .bento-item.large .tech-tag {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.75rem;
+    }
+
+    .bento-item.large h3 {
+        font-size: 1.5rem;
+        color: #ffffff;
+    }
+
+    .bento-item.large .project-name {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.9);
     }
 
     @media (max-width: 768px) {
         #projects {
-            padding: 4rem 1rem 2rem;
+            padding: 4rem 1rem 4rem;
+            min-height: auto;
         }
 
-        .carousel-track {
-            grid-auto-columns: 85%;
-            gap: 1rem;
-            padding: 0 1rem;
+        .bento-grid {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(7, 80px);
+            gap: 0.75rem;
+            width: 90vw;
+            height: auto;
+            aspect-ratio: auto;
         }
 
-        .carousel-container {
-            margin: 1rem -1rem;
-            padding: 1rem 0;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scroll-snap-type: x mandatory;
+        .bento-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
         }
 
-        .project-item {
-            scroll-snap-align: center;
-            padding: 1.5rem;
+        .bento-item.medium {
+            grid-column: span 2;
+            grid-row: span 1;
+        }
+
+        .bento-item.small {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+
+        .bento-content {
+            padding: 1rem;
+        }
+
+        .bento-item h3 {
+            font-size: 1rem;
+        }
+
+        .bento-item.large h3 {
+            font-size: 1.25rem;
+        }
+
+        .bento-item .project-description {
+            font-size: 0.8rem;
+        }
+
+        .bento-item .tech-tag {
+            font-size: 0.7rem;
+            padding: 0.125rem 0.375rem;
         }
 
         .experience-items, .education-items {
             display: flex;
             flex-direction: column;
             gap: 2rem;
-        }
-
-        .item-container {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            transition: gap 0.3s ease;
-        }
-
-        .experience-item, .education-item {
-            border-radius: 4px;
-            margin: 0;
-            transition: all 0.3s ease;
-        }
-
-        .experience-item.active, .education-item.active {
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-            border-bottom: none;
-        }
-
-        .mobile-detail {
-            display: block;
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-            border-top: none;
-            border-bottom-left-radius: 4px;
-            border-bottom-right-radius: 4px;
-            background-color: white;
-        }
-
-        .mobile-detail.visible {
-            max-height: none;
-            opacity: 1;
-            border-color: #eee;
-            padding: 1.5rem;
-        }
-
-        .mobile-detail ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .mobile-detail li {
-            margin-bottom: 1rem;
-            line-height: 1.6;
-            color: #555;
-            font-size: 0.95rem;
-            position: relative;
-            padding-left: 1.25rem;
-        }
-
-        .mobile-detail li:last-child {
-            margin-bottom: 0;
-        }
-
-        .mobile-detail li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: olive;
-        }
-
-        .experience-detail, .education-detail {
-            display: none;
-        }
-
-        #experience .content, #education .content {
-            padding-bottom: 2rem;
-        }
-
-        #projects {
-            padding-bottom: 6rem;
-            min-height: auto;
-            height: auto;
-        }
-
-        #projects .content {
-            padding-top: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer {
-            padding: 1.25rem 1rem;
-            margin-top: 2rem;
         }
     }
 
@@ -1209,7 +1287,6 @@
 
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { fade } from 'svelte/transition';
     
     let experienceTextVisible = false;
     let currentExperienceText = '';
@@ -1228,107 +1305,14 @@
         projects: false
     };
     
-    let isHovering = false;
-    let carouselTrack: HTMLElement | null = null;
-    let autoplayInterval: number | null = null;
-    let isScrolling: number;
+    let hasAutoShownExperience = false;
+    let hasAutoShownEducation = false;
     
     let activeExperienceItem = '';
     let activeEducationItem = '';
     
     let experienceDetailEl: HTMLElement;
     let educationDetailEl: HTMLElement;
-    
-    const projects = [
-        {
-            number: "01",
-            title: "First Website",
-            name: "About Elias Johnson",
-            description: "My first website built with HTML and CSS, showcasing fundamental web development skills",
-            link: "https://abouteliasjohnsoncss.netlify.app/",
-            technologies: ["HTML", "CSS"]
-        },
-        {
-            number: "02",
-            title: "Bookends",
-            name: "Reading habit builder",
-            description: "I'm building out features and will soon be building a proprietary Epub reader into the app",
-            link: "https://bookends.app",
-            technologies: ["Swift", "IOS", "AWS Lambda", "DynamoDB"]
-        },
-        {
-            number: "03",
-            title: "Student Registration App",
-            name: "Academic Project",
-            description: "Interactive student registration page with form validation and responsive design",
-            link: "https://project5eliasjohnson.netlify.app/",
-            technologies: ["HTML", "CSS", "JavaScript"]
-        },
-        {
-            number: "04",
-            title: "Book Database App",
-            name: "Library Manager",
-            description: "Dynamic book database application with search and filtering capabilities",
-            link: "https://project4bookapp.netlify.app/",
-            technologies: ["JavaScript", "CSS", "HTML"]
-        },
-        {
-            number: "05",
-            title: "Trivia Web App",
-            name: "Interactive Quiz Game",
-            description: "Dynamic trivia application with multiple categories and score tracking",
-            link: "https://eliasjohnsonproject3trivia.netlify.app/",
-            technologies: ["JavaScript", "CSS", "API Integration"]
-        },
-        {
-            number: "06",
-            title: "Business Website",
-            name: "Provo School of The Arts",
-            description: "Website via Squarespace & IT infrastructure setup for a small business",
-            link: "https://provoschoolofthearts.com/",
-            technologies: ["Squarespace", "IT Infrastructure"]
-        },
-        {
-            number: "07",
-            title: "SAAS Onboarding Automations",
-            name: "Pattern",
-            description: "Automated employee onboarding for various SAAS platforms",
-            link: "#",
-            technologies: ["Automation", "SAAS"]
-        },
-        {
-            number: "08",
-            title: "Render Farm Management",
-            name: "Pattern",
-            description: "Deployed a Keyshot render farm for 300% faster rendering performance",
-            link: "#",
-            technologies: ["Keyshot", "Render Farm"]
-        },
-        {
-            number: "09",
-            title: "Custom Computer Builds",
-            name: "Pattern",
-            description: "I build custom computers for clients like Pattern and friends",
-            link: "#",
-            technologies: ["Hardware", "Custom Builds"]
-        },
-        {
-            number: "10",
-            title: "Eagle Scout Project",
-            name: "BSOA",
-            description: "Constructed an ATV bridge at Starvation Creek for the Utah Division of Wildlife Resources",
-            link: "#",
-            technologies: ["Project Management", "Construction"]
-        },
-        {
-            number: "11",
-            title: "This Website",
-            name: "Personal",
-            description: "Built this website with Svelte and Tailwind CSS, hosted on Github Pages",
-            link: "#",
-            technologies: ["Svelte", "Tailwind CSS", "GitHub Pages"]
-        }
-    ];
     
     function debounce(func: Function, wait: number) {
         let timeout: ReturnType<typeof setTimeout>;
@@ -1391,17 +1375,36 @@
             return;
         }
         
-        // Desktop behavior - update immediately
+        // Desktop behavior - smooth transition
+        if (currentExperienceText === type && experienceTextVisible) {
+            // Same item clicked, just keep it open
+            return;
+        }
+        
+        // If different item or first time, update smoothly
         activeExperienceItem = type;
-        currentExperienceText = type;
-        experienceTextVisible = true;
+        
+        if (experienceTextVisible && currentExperienceText !== type) {
+            // Fade out current, then fade in new
+            experienceTextVisible = false;
+            setTimeout(() => {
+                currentExperienceText = type;
+                experienceTextVisible = true;
+            }, 150);
+        } else {
+            // First time showing or not currently visible
+            currentExperienceText = type;
+            experienceTextVisible = true;
+        }
     }
     
     function hideExperienceText() {
         if (typeof window !== 'undefined' && window.innerWidth <= 768) return;
-        experienceTextVisible = false;
-        activeExperienceItem = '';
-        document.getElementById('experience')?.classList.remove('has-detail-visible');
+        
+        hideTimeout = setTimeout(() => {
+            experienceTextVisible = false;
+            activeExperienceItem = '';
+        }, 100);
     }
     
     function showEducationText(type: string) {
@@ -1426,57 +1429,36 @@
             return;
         }
         
-        // Desktop behavior - update immediately
+        // Desktop behavior - smooth transition
+        if (currentEducationText === type && educationTextVisible) {
+            // Same item clicked, just keep it open
+            return;
+        }
+        
+        // If different item or first time, update smoothly
         activeEducationItem = type;
-        currentEducationText = type;
-        educationTextVisible = true;
+        
+        if (educationTextVisible && currentEducationText !== type) {
+            // Fade out current, then fade in new
+            educationTextVisible = false;
+            setTimeout(() => {
+                currentEducationText = type;
+                educationTextVisible = true;
+            }, 150);
+        } else {
+            // First time showing or not currently visible
+            currentEducationText = type;
+            educationTextVisible = true;
+        }
     }
     
     function hideEducationText() {
         if (typeof window !== 'undefined' && window.innerWidth <= 768) return;
-        educationTextVisible = false;
-        activeEducationItem = '';
-        document.getElementById('education')?.classList.remove('has-detail-visible');
-    }
-    
-    function handleMouseEnter() {
-        isHovering = true;
-        if (autoplayInterval) {
-            clearInterval(autoplayInterval);
-            autoplayInterval = null;
-        }
-    }
-
-    function handleMouseLeave() {
-        isHovering = false;
-        if (window.innerWidth > 768) {
-            startAutoplay();
-        }
-    }
-
-    function startAutoplay() {
-        if (autoplayInterval) {
-            clearInterval(autoplayInterval);
-        }
-        autoplayInterval = setInterval(() => {
-            if (!isHovering && carouselTrack && window.innerWidth > 768) {
-                const container = carouselTrack.parentElement;
-                if (container) {
-                    const itemWidth = container.clientWidth * 0.33333 + 32;
-                    const maxScroll = container.scrollWidth - container.clientWidth;
-                    let newScrollLeft = container.scrollLeft + itemWidth;
-                    
-                    if (newScrollLeft > maxScroll) {
-                        newScrollLeft = 0;
-                    }
-                    
-                    container.scrollTo({
-                        left: newScrollLeft,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        }, 3000);
+        
+        hideEducationTimeout = setTimeout(() => {
+            educationTextVisible = false;
+            activeEducationItem = '';
+        }, 100);
     }
     
     onMount(() => {
@@ -1546,91 +1528,68 @@
         }
         
         function handleWheel(event: WheelEvent) {
-            // Skip special scroll behavior on mobile devices
-            if (window.innerWidth <= 768) return;
-            
-            if (isScrolling) {
-                event.preventDefault();
-                return;
-            }
-            
-            const direction = event.deltaY > 0 ? 1 : -1;
-            event.preventDefault();
-            
-            if (Math.abs(event.deltaY) > 10) {
-                scrollToSection(currentSectionIndex + direction);
-            }
+            // Let CSS snap scroll handle everything
+            return;
         }
         
         function handleKeydown(event: KeyboardEvent) {
-            // Skip special scroll behavior on mobile devices
-            if (window.innerWidth <= 768) return;
-            
-            if (event.key === 'ArrowDown' || event.key === 'PageDown') {
-                event.preventDefault();
-                scrollToSection(currentSectionIndex + 1);
-            } else if (event.key === 'ArrowUp' || event.key === 'PageUp') {
-                event.preventDefault();
-                scrollToSection(currentSectionIndex - 1);
-            }
+            // Let CSS snap scroll handle everything
+            return;
         }
         
         let touchStartY = 0;
         let touchEndY = 0;
         
         function handleTouchStart(e: TouchEvent) {
-            // Skip special scroll behavior on mobile devices
-            if (window.innerWidth <= 768) return;
-            touchStartY = e.touches[0].clientY;
+            // Let CSS snap scroll handle everything
+            return;
         }
         
         function handleTouchEnd(e: TouchEvent) {
-            // Skip special scroll behavior on mobile devices
-            if (window.innerWidth <= 768) return;
-            
-            touchEndY = e.changedTouches[0].clientY;
-            const SWIPE_THRESHOLD = 50;
-            
-            if (Date.now() - lastScrollTime < scrollCooldown) return;
-            
-            if (touchStartY - touchEndY > SWIPE_THRESHOLD) {
-                scrollToSection(currentSectionIndex + 1);
-            } else if (touchEndY - touchStartY > SWIPE_THRESHOLD) {
-                scrollToSection(currentSectionIndex - 1);
-            }
+            // Let CSS snap scroll handle everything
+            return;
         }
         
         function handleScroll() {
-            // Skip special scroll behavior on mobile devices
-            if (window.innerWidth <= 768) return;
-            
-            if (!isScrolling) {
-                let maxVisibleSection = 0;
-                let maxVisibleArea = 0;
-                
-                sections.forEach((section, index) => {
-                    const rect = section.getBoundingClientRect();
-                    const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
-                    
-                    if (visibleHeight > maxVisibleArea) {
-                        maxVisibleArea = visibleHeight;
-                        maxVisibleSection = index;
-                    }
-                });
-                
-                if (maxVisibleSection !== currentSectionIndex) {
-                    currentSectionIndex = maxVisibleSection;
-                    updateActiveNavLink();
-                }
-            }
+            // Let CSS snap scroll handle everything
+            return;
         }
         
         const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
+                const sectionId = entry.target.id;
+                
                 if (entry.isIntersecting) {
-                    const sectionId = entry.target.id;
                     if (sectionId in sectionVisible) {
                         sectionVisible[sectionId as keyof typeof sectionVisible] = true;
+                        
+                        // Auto-show first item details when section becomes visible
+                        if (sectionId === 'experience' && !experienceTextVisible && !hasAutoShownExperience && !activeExperienceItem) {
+                            setTimeout(() => {
+                                if (!experienceTextVisible && !activeExperienceItem) { // Double check before showing
+                                    showExperienceText('junior'); // Show first item (Software Engineer)
+                                    hasAutoShownExperience = true;
+                                }
+                            }, 300);
+                        } else if (sectionId === 'education' && !educationTextVisible && !hasAutoShownEducation && !activeEducationItem) {
+                            setTimeout(() => {
+                                if (!educationTextVisible && !activeEducationItem) { // Double check before showing
+                                    showEducationText('bs'); // Show first item (B.S. Information Systems)
+                                    hasAutoShownEducation = true;
+                                }
+                            }, 300);
+                        }
+                    }
+                } else {
+                    // Hide panels when leaving sections
+                    if (sectionId === 'experience') {
+                        experienceTextVisible = false;
+                        activeExperienceItem = '';
+                        currentExperienceText = '';
+                    } else if (sectionId === 'education') {
+                        educationTextVisible = false;
+                        activeEducationItem = '';
+                        currentEducationText = '';
                     }
                 }
             });
@@ -1657,45 +1616,6 @@
         });
         
         initializeSection();
-        
-        // Initialize autoplay for desktop
-        if (window.innerWidth > 768) {
-            startAutoplay();
-        }
-        
-        // Add touch handling for mobile carousel
-        if (carouselTrack && typeof window !== 'undefined') {
-            const container = carouselTrack.parentElement;
-            if (container) {
-                let isScrolling: number;
-                
-                container.addEventListener('scroll', () => {
-                    window.clearTimeout(isScrolling);
-                    isScrolling = window.setTimeout(() => {
-                        const scrollLeft = container.scrollLeft;
-                        const itemWidth = window.innerWidth <= 768 
-                            ? container.clientWidth * 0.85 + 16  // Mobile: 85% width + gap
-                            : window.innerWidth <= 1200
-                                ? container.clientWidth * 0.5 + 32  // Tablet: 50% width + gap
-                                : container.clientWidth * 0.33333 + 32;  // Desktop: 33.333% width + gap
-                        
-                        const nearestItem = Math.round(scrollLeft / itemWidth);
-                        container.scrollTo({
-                            left: nearestItem * itemWidth,
-                            behavior: 'smooth'
-                        });
-                    }, 150);
-                }, { passive: true });
-
-                // Add mouse wheel horizontal scrolling for desktop
-                container.addEventListener('wheel', (e: WheelEvent) => {
-                    if (window.innerWidth > 768) {
-                        e.preventDefault();
-                        container.scrollLeft += e.deltaY;
-                    }
-                }, { passive: false });
-            }
-        }
         
         return () => {
             window.removeEventListener('wheel', handleWheel);
