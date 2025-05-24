@@ -41,7 +41,7 @@
                     <span class="animate-letter" role="button" tabindex="0" style="--delay: 0.65s; --direction: -100vw, 50vh;" on:mouseenter={(e) => debouncedReanimateElement(e.currentTarget)}>o</span>
                     <span class="animate-letter" role="button" tabindex="0" style="--delay: 0.7s; --direction: 100vw, -50vh;" on:mouseenter={(e) => debouncedReanimateElement(e.currentTarget)}>n</span>
                 </h1>
-                <h2 class="subtitle">Software & Web Developer</h2>
+                <h2 class="subtitle">Software Engineer</h2>
             </div>
         </div>
     </section>
