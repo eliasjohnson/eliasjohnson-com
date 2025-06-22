@@ -12,14 +12,22 @@
 <!-- svelte-ignore css_unused_selector -->
 <div class="container">
     <nav class="navbar">
-        <div class="nav-logo">
-            <a href="/" class="logo-text" on:click|preventDefault={scrollToTop}>3</a>
+        <div class="social-links">
+            <a href="https://github.com/eliasjohnson" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub Profile">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            </a>
+            <a href="https://linkedin.com/in/eliasjohnson211" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn Profile">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+            <a href="https://instagram.com/elias.hamke" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram Profile">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
         </div>
         <ul class="nav-links">
-            <li><a href="#home" class="nav-item">Home</a></li>
-            <li><a href="#experience" class="nav-item">Experience</a></li>
-            <li><a href="#education" class="nav-item">Education</a></li>
-            <li><a href="#projects" class="nav-item">Projects</a></li>
+            <li><a href="#home" class="nav-item" on:click|preventDefault={(e) => scrollToSectionById('home')}>Home</a></li>
+            <li><a href="#experience" class="nav-item" on:click|preventDefault={(e) => scrollToSectionById('experience')}>Experience</a></li>
+            <li><a href="#education" class="nav-item" on:click|preventDefault={(e) => scrollToSectionById('education')}>Education</a></li>
+            <li><a href="#projects" class="nav-item" on:click|preventDefault={(e) => scrollToSectionById('projects')}>Projects</a></li>
         </ul>
     </nav>
 
@@ -466,22 +474,7 @@
         </div>
     </section>
 
-    <footer id="contact" class="footer">
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="https://github.com/eliasjohnson" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="GitHub Profile">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                </a>
-                <a href="https://linkedin.com/in/eliasjohnson211" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="LinkedIn Profile">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                </a>
-                <a href="https://instagram.com/elias.hamke" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Instagram Profile">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                </a>
-            </div>
-            <div class="footer-text">© 2025 Elias Johnson</div>
-        </div>
-    </footer>
+
 </div>
 
 <style>
@@ -537,21 +530,28 @@
         backdrop-filter: blur(5px);
     }
     
-    .nav-logo {
-        margin-right: auto;
+
+    
+    .social-links {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
     }
     
-    .logo-text {
-        font-weight: 700;
-        font-size: 1.5rem;
-        text-decoration: none;
+    .social-link {
+        color: #888;
+        transition: color 0.3s ease, transform 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .social-link:hover {
         color: #000;
-        transition: opacity 0.2s ease;
+        transform: translateY(-2px);
     }
     
-    .logo-text:hover {
-        opacity: 0.7;
-    }
+
 
     .nav-links {
         display: flex;
@@ -645,13 +645,7 @@
         height: auto;
     }
 
-    .footer {
-        padding: 4rem 2rem;
-        background-color: #fff;
-        position: relative;
-        z-index: 10;
-        scroll-snap-align: none;
-    }
+
 
     .content {
         max-width: 1200px;
@@ -848,73 +842,9 @@
         display: none;
     }
 
-    .footer-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-    }
 
-    .footer-links {
-        display: flex;
-        gap: 2rem;
-        align-items: center;
-    }
 
-    .footer-link {
-        color: #222;
-        opacity: 0.6;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.5rem;
-    }
 
-    .footer-link:hover {
-        opacity: 1;
-        transform: translateY(-2px);
-    }
-
-    .footer-text {
-        font-size: 0.875rem;
-        color: #666;
-        letter-spacing: 0.02em;
-    }
-
-    @media (max-width: 768px) {
-        .footer {
-            padding: 3rem 1.5rem;
-        }
-
-        .footer-content {
-            gap: 1.5rem;
-        }
-
-        .footer-links {
-            gap: 1.5rem;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .footer {
-            padding: 2rem 1rem;
-        }
-
-        .footer-content {
-            gap: 1rem;
-        }
-
-        .footer-links {
-            gap: 1.25rem;
-        }
-
-        .footer-text {
-            font-size: 0.8125rem;
-        }
-    }
 
     .bento-grid {
         display: grid;
@@ -1252,6 +1182,15 @@
             padding: 1.25rem 1rem;
         }
 
+        .social-links {
+            gap: 0.75rem;
+        }
+
+        .social-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
         .nav-links {
             gap: 1.25rem;
         }
@@ -1260,15 +1199,20 @@
             font-size: 0.9rem;
             padding: 0.5rem 0;
         }
-
-        .logo-text {
-            font-size: 1.25rem;
-        }
     }
 
     @media (max-width: 480px) {
         .navbar {
             padding: 1rem 0.75rem;
+        }
+
+        .social-links {
+            gap: 0.5rem;
+        }
+
+        .social-link svg {
+            width: 14px;
+            height: 14px;
         }
 
         .nav-links {
@@ -1346,11 +1290,14 @@
         }, 1200 + parseFloat(delay) * 1000);
     }
     
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+    function scrollToSectionById(sectionId: string) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     }
     
     function showExperienceText(type: string) {
@@ -1604,11 +1551,16 @@
         window.addEventListener('touchstart', handleTouchStart, { passive: true });
         window.addEventListener('touchend', handleTouchEnd, { passive: true });
         
+        // Store click handlers for proper cleanup
+        const clickHandlers = new Map();
+        
         navLinks.forEach((link, index) => {
-            link.addEventListener('click', (event) => {
+            const handler = (event: Event) => {
                 event.preventDefault();
                 scrollToSection(index);
-            });
+            };
+            clickHandlers.set(link, handler);
+            link.addEventListener('click', handler);
         });
         
         sections.forEach(section => {
@@ -1624,8 +1576,12 @@
             window.removeEventListener('touchstart', handleTouchStart);
             window.removeEventListener('touchend', handleTouchEnd);
             
+            // Properly remove click handlers
             navLinks.forEach((link) => {
-                link.removeEventListener('click', () => {});
+                const handler = clickHandlers.get(link);
+                if (handler) {
+                    link.removeEventListener('click', handler);
+                }
             });
             
             if (sectionObserver) {
