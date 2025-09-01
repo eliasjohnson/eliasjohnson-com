@@ -68,6 +68,29 @@
         pointer-events: auto;
     }
 
+    /* Disable pointer events on mobile for better swiping */
+    @media (max-width: 768px) {
+        .global-spline, :global(spline-viewer) {
+            pointer-events: none;
+        }
+        
+        :global(spline-viewer canvas) {
+            pointer-events: none;
+            touch-action: none;
+        }
+    }
+
+    /* Re-enable pointer events on larger tablets and desktops where touch precision is better */
+    @media (min-width: 769px) {
+        .global-spline, :global(spline-viewer) {
+            pointer-events: auto;
+        }
+        
+        :global(spline-viewer canvas) {
+            pointer-events: auto;
+        }
+    }
+
     .site-content {
         position: relative;
         z-index: 1;
