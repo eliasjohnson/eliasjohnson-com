@@ -1,72 +1,102 @@
-<script>
+<script lang="ts">
     import { onMount } from 'svelte';
     
-    let container;
-    
     onMount(() => {
-        // Wait for DOM to be fully loaded
-        setTimeout(() => {
-            container = document.querySelector('.horizontal-container');
+        const container = document.querySelector('.horizontal-container') as HTMLElement;
+        
+        if (!container) {
+            console.error('Container not found');
+            return;
+        }
+        
+        // Enhanced wheel handler for both vertical and horizontal scrolling
+        function handleScroll(event: WheelEvent) {
+            if (!container) return;
             
-            if (!container) {
-                console.error('Container not found');
+            // Check if there's horizontal scrolling (from trackpad/horizontal wheel)
+            if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
+                // Native horizontal scroll - let it through
                 return;
+            } else {
+                // Convert vertical scroll to horizontal
+                event.preventDefault();
+                const scrollAmount = event.deltaY;
+                container.scrollLeft += scrollAmount;
             }
+        }
+        
+        // Add to container for better control
+        container.addEventListener('wheel', handleScroll as EventListener, { passive: false });
+        
+        // Touch support for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let scrollStartX = 0;
+        
+        function handleTouchStart(event: TouchEvent) {
+            touchStartX = event.touches[0].clientX;
+            touchStartY = event.touches[0].clientY;
+            scrollStartX = container.scrollLeft;
+        }
+        
+        function handleTouchMove(event: TouchEvent) {
+            if (!touchStartX || !touchStartY) return;
             
-            // Main wheel handler
-            const handleWheel = (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                e.stopImmediatePropagation();
-                
-                // Get scroll amount from vertical or horizontal movement
-                const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-                
-                // Apply horizontal scroll
-                container.scrollLeft += delta;
-                
-                return false;
-            };
+            const touchEndX = event.touches[0].clientX;
+            const touchEndY = event.touches[0].clientY;
+            const diffX = touchStartX - touchEndX;
+            const diffY = touchStartY - touchEndY;
             
-            // Add listeners to multiple elements to ensure we catch all events
-            document.addEventListener('wheel', handleWheel, { passive: false });
-            container.addEventListener('wheel', handleWheel, { passive: false });
-            
-            // Also handle for the body and html
-            document.body.addEventListener('wheel', handleWheel, { passive: false });
-            document.documentElement.addEventListener('wheel', handleWheel, { passive: false });
-            
-            // Keyboard navigation
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') {
-                    container.scrollBy({ left: window.innerWidth, behavior: 'smooth' });
-                } else if (e.key === 'ArrowLeft') {
-                    container.scrollBy({ left: -window.innerWidth, behavior: 'smooth' });
-                } else if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-                    e.preventDefault();
-                    container.scrollBy({ left: window.innerWidth, behavior: 'smooth' });
-                } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-                    e.preventDefault();
-                    container.scrollBy({ left: -window.innerWidth, behavior: 'smooth' });
-                }
-            });
-            
-            // Touch support for mobile
-            let touchStartX = 0;
-            container.addEventListener('touchstart', (e) => {
-                touchStartX = e.touches[0].clientX;
-            });
-            
-            container.addEventListener('touchmove', (e) => {
-                if (!touchStartX) return;
-                
-                const touchEndX = e.touches[0].clientX;
-                const diff = touchStartX - touchEndX;
-                
-                container.scrollLeft += diff;
-                touchStartX = touchEndX;
-            });
-        }, 100);
+            // If horizontal swipe is greater than vertical, handle it
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                event.preventDefault();
+                container.scrollLeft = scrollStartX + diffX;
+            }
+        }
+        
+        function handleTouchEnd() {
+            touchStartX = 0;
+            touchStartY = 0;
+            scrollStartX = 0;
+        }
+        
+        container.addEventListener('touchstart', handleTouchStart as EventListener, { passive: true });
+        container.addEventListener('touchmove', handleTouchMove as EventListener, { passive: false });
+        container.addEventListener('touchend', handleTouchEnd, { passive: true });
+        
+        // Arrow key navigation
+        function handleKeydown(event: KeyboardEvent) {
+            if (!container) return;
+            switch(event.key) {
+                case 'ArrowRight':
+                    event.preventDefault();
+                    container.scrollLeft += window.innerWidth;
+                    break;
+                case 'ArrowLeft':  
+                    event.preventDefault();
+                    container.scrollLeft -= window.innerWidth;
+                    break;
+                case 'ArrowDown':
+                    event.preventDefault();
+                    container.scrollLeft += window.innerWidth;
+                    break;
+                case 'ArrowUp':
+                    event.preventDefault();  
+                    container.scrollLeft -= window.innerWidth;
+                    break;
+            }
+        }
+        
+        window.addEventListener('keydown', handleKeydown);
+        
+        // Cleanup
+        return () => {
+            container.removeEventListener('wheel', handleScroll as EventListener);
+            container.removeEventListener('touchstart', handleTouchStart as EventListener);
+            container.removeEventListener('touchmove', handleTouchMove as EventListener);
+            container.removeEventListener('touchend', handleTouchEnd);
+            window.removeEventListener('keydown', handleKeydown);
+        };
     });
 </script>
 
@@ -90,9 +120,6 @@
         <a href="https://linkedin.com/in/eliasjohnson211" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn Profile">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
         </a>
-        <a href="https://instagram.com/elias.hamke" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram Profile">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-        </a>
     </div>
     <div class="nav-contact">
         <a href="https://linkedin.com/in/eliasjohnson211" target="_blank" class="contact-link">Get in touch</a>
@@ -107,7 +134,10 @@
             <h1 class="name">Elias Johnson</h1>
             <p class="title">Software Engineer</p>
             <div class="scroll-hint">
-                <span>Scroll right →</span>
+                <span>Scroll horizontally →</span>
+                <div class="scroll-indicator">
+                    <span>• • • • •</span>
+                </div>
             </div>
         </div>
     </section>
@@ -221,7 +251,7 @@
     }
     
     .social-link {
-        color: rgba(0, 0, 0, 0.7);
+        color: #000;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         display: flex;
         align-items: center;
@@ -253,7 +283,7 @@
     
     .contact-link {
         text-decoration: none;
-        color: rgba(0, 0, 0, 0.8);
+        color: #000;
         font-size: 1rem;
         font-weight: 600;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -281,17 +311,19 @@
     /* Horizontal Scroll Container */
     .horizontal-container {
         display: flex;
-        width: 500vw; /* 5 sections = 5x viewport width */
+        width: 100vw;
         height: 100vh;
-        overflow-x: scroll;
+        overflow-x: auto;
         overflow-y: hidden;
         scroll-behavior: smooth;
         scroll-snap-type: x mandatory;
         scrollbar-width: none; /* Firefox */
         -ms-overflow-style: none; /* IE and Edge */
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
+        right: 0;
+        bottom: 0;
         z-index: 10;
         background: transparent;
     }
@@ -352,20 +384,36 @@
         font-family: "Clash Display", sans-serif;
         font-weight: 600;
         font-size: clamp(3rem, 7vw, 5rem);
-        color: #666;
+        color: #000;
         margin: 0 0 2rem 0;
     }
 
     .scroll-hint {
         opacity: 0.7;
         font-size: 1.1rem;
-        color: #888;
+        color: #000;
         animation: pulse 2s infinite;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .scroll-indicator {
+        font-size: 1.5rem;
+        letter-spacing: 0.5rem;
+        opacity: 0.5;
+        animation: slide 3s ease-in-out infinite;
     }
 
     @keyframes pulse {
         0%, 100% { opacity: 0.7; }
         50% { opacity: 1; }
+    }
+    
+    @keyframes slide {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(10px); }
     }
 
     /* Section Specific Styling */
@@ -379,7 +427,7 @@
     .section-content p {
         font-size: 1.2rem;
         line-height: 1.6;
-        color: #555;
+        color: #000;
         margin-bottom: 1.5rem;
     }
 
@@ -398,12 +446,12 @@
         font-size: 1.5rem;
         font-weight: 600;
         margin-bottom: 1rem;
-        color: #333;
+        color: #000;
     }
 
     .skill-category p {
         font-size: 1rem;
-        color: #666;
+        color: #000;
         line-height: 1.5;
     }
 
@@ -418,7 +466,7 @@
         text-decoration: none;
         background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(20px) saturate(180%);
-        color: rgba(0, 0, 0, 0.8);
+        color: #000;
         padding: 1rem 2rem;
         border-radius: 16px;
         font-weight: 600;
@@ -469,14 +517,14 @@
     .experience-item h4 {
         font-size: 1rem;
         font-weight: 600;
-        color: #666;
+        color: #000;
         margin-bottom: 1rem;
     }
 
     .experience-item p {
         font-size: 0.95rem;
         line-height: 1.5;
-        color: #555;
+        color: #000;
         margin: 0;
     }
 
