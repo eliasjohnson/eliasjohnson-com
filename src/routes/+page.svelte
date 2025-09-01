@@ -295,12 +295,17 @@
 
     <!-- Section 6: Connect -->
     <section class="horizontal-section connect-section">
-        <div class="section-content">
-            <h2>Let's Connect</h2>
-            <p>Based in Salt Lake City, UT • Ready to build something amazing together? I'm always interested in exciting projects and new opportunities.</p>
-            <div class="cta-buttons">
-                <a href="mailto:eliasjohnson211@gmail.com" class="cta-button">Email Me</a>
-                <a href="https://linkedin.com/in/eliasjohnson211" target="_blank" class="cta-button">LinkedIn</a>
+        <div class="section-content connect-content">
+            <div class="connect-text">
+                <h2>Let's Connect</h2>
+                <p>Based in Salt Lake City, UT • Ready to build something amazing together? I'm always interested in exciting projects and new opportunities.</p>
+                <div class="cta-buttons">
+                    <a href="mailto:eliasjohnson211@gmail.com" class="cta-button">Email Me</a>
+                    <a href="https://linkedin.com/in/eliasjohnson211" target="_blank" class="cta-button">LinkedIn</a>
+                </div>
+            </div>
+            <div class="connect-portrait">
+                <img src="{base}/me.jpeg" alt="Elias Johnson - Software Engineer" />
             </div>
         </div>
     </section>
@@ -729,6 +734,21 @@
             font-size: 0.85rem;
         }
 
+        .connect-content {
+            flex-direction: column;
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .connect-portrait {
+            flex: none;
+        }
+
+        .connect-portrait img {
+            width: 220px;
+            height: 220px;
+        }
+
         .cta-buttons {
             flex-direction: column;
             align-items: stretch;
@@ -851,6 +871,11 @@
         .contact-link {
             font-size: 0.75rem;
             padding: 0.3rem 0.6rem;
+        }
+
+        .connect-portrait img {
+            width: 180px;
+            height: 180px;
         }
     }
 
@@ -1108,6 +1133,56 @@
             width: 6px;
             height: 6px;
         }
+    }
+
+    /* Connect Section Styles */
+    .connect-content {
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+        text-align: left;
+    }
+
+    .connect-text {
+        flex: 1;
+    }
+
+    .connect-text h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .connect-text p {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .connect-portrait {
+        flex: 0 0 280px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .connect-portrait img {
+        width: 280px;
+        height: 280px;
+        object-fit: cover;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 
+            0 8px 32px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .connect-portrait img:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 
+            0 12px 40px rgba(0, 0, 0, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.2);
     }
 
     /* Improve touch scrolling on iOS */
