@@ -176,7 +176,7 @@
     <section class="horizontal-section hero-section">
         <div class="section-content">
             <h1 class="name">Elias Johnson</h1>
-            <p class="title">Software Engineer</p>
+            <h2>Software Engineer</h2>
             <div class="scroll-hint">
                 <span class="scroll-text">Scroll horizontally →</span>
                 <span class="scroll-text-mobile">Swipe to explore →</span>
@@ -207,19 +207,19 @@
                 </div>
                 <div class="skill-category">
                     <h3>Languages</h3>
-                    <p>Python, JavaScript, TypeScript, Swift, Bash, Ruby, PHP</p>
+                    <p>Python, JavaScript, TypeScript, Swift, Bash, Ruby, GO, Liquid</p>
                 </div>
                 <div class="skill-category">
                     <h3>Frameworks</h3>
-                    <p>React, Svelte, NextJS, NodeJS, Rails</p>
+                    <p>React, Svelte, NextJS, NodeJS, ROS </p>
                 </div>
                 <div class="skill-category">
                     <h3>Cloud & DevOps</h3>
-                    <p>AWS, Azure, GCP, Docker, Terraform</p>
+                    <p>AWS, Azure, GCP, Vercel, Github Actions, Shopify CLI</p>
                 </div>
                 <div class="skill-category">
-                    <h3>Databases</h3>
-                    <p>MySQL, R, REST APIs, MCP</p>
+                    <h3>Databases & APIs</h3>
+                    <p>MySQL, MCP, PostgreSQL, MongoDB, REST APIs, GraphQL, JSON handling</p>
                 </div>
                 <div class="skill-category">
                     <h3>Systems</h3>
@@ -482,7 +482,7 @@
     .title {
         font-family: "Clash Display", sans-serif;
         font-weight: 600;
-        font-size: clamp(3rem, 7vw, 5rem);
+        font-size: clamp(4rem, 10vw, 8rem);
         color: #000;
         margin: 0 0 2rem 0;
     }
@@ -540,26 +540,30 @@
 
     .skills-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 2rem;
-        margin-top: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
     }
 
     .skill-category {
         text-align: center;
+        padding: 0.75rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .skill-category h3 {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         font-weight: 600;
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
         color: #000;
     }
 
     .skill-category p {
-        font-size: 1rem;
+        font-size: 0.95rem;
         color: #000;
-        line-height: 1.5;
+        line-height: 1.4;
     }
 
     .cta-buttons {
@@ -654,7 +658,7 @@
         }
 
         .section-content {
-            padding: 1.5rem;
+            padding: 1.25rem;
             border-radius: 16px;
             max-width: 100%;
             width: 100%;
@@ -668,36 +672,41 @@
         }
 
         .title {
-            font-size: clamp(1.5rem, 6vw, 2.5rem);
+            font-size: clamp(2.5rem, 8vw, 4rem);
         }
 
         h2 {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .section-content p {
-            font-size: 1rem;
-            line-height: 1.5;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            margin-bottom: 1rem;
         }
 
         .skills-grid {
-            grid-template-columns: 1fr;
-            gap: 1rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 1rem;
         }
 
         .skill-category {
             background: rgba(255, 255, 255, 0.05);
-            padding: 1rem;
-            border-radius: 12px;
+            padding: 0.75rem;
+            border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .skill-category h3 {
-            font-size: 1.25rem;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         .skill-category p {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+            line-height: 1.3;
         }
 
         .experience-grid {
@@ -780,11 +789,11 @@
         }
 
         .horizontal-section {
-            padding: 3rem 0.5rem 0.5rem;
+            padding: 2.75rem 0.5rem 0.5rem;
         }
 
         .section-content {
-            padding: 1.25rem;
+            padding: 1rem;
         }
 
         .name {
@@ -792,17 +801,40 @@
         }
 
         .title {
-            font-size: clamp(1.25rem, 8vw, 2rem);
+            font-size: clamp(2rem, 10vw, 3rem);
         }
 
         h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
         }
 
         .section-content p {
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            line-height: 1.3;
+            margin-bottom: 0.75rem;
+        }
+
+        .skills-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .skill-category {
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .skill-category h3 {
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+
+        .skill-category p {
+            font-size: 0.7rem;
+            line-height: 1.2;
         }
 
         .social-link {
