@@ -28,15 +28,17 @@
         // Add to container for better control
         container.addEventListener('wheel', handleScroll as EventListener, { passive: false });
         
-        // Touch support for mobile
+        // Enhanced touch support for mobile
         let touchStartX = 0;
         let touchStartY = 0;
         let scrollStartX = 0;
+        let isSwiping = false;
         
         function handleTouchStart(event: TouchEvent) {
             touchStartX = event.touches[0].clientX;
             touchStartY = event.touches[0].clientY;
             scrollStartX = container.scrollLeft;
+            isSwiping = false;
         }
         
         function handleTouchMove(event: TouchEvent) {
@@ -47,8 +49,17 @@
             const diffX = touchStartX - touchEndX;
             const diffY = touchStartY - touchEndY;
             
-            // If horizontal swipe is greater than vertical, handle it
-            if (Math.abs(diffX) > Math.abs(diffY)) {
+            // Determine swipe direction early
+            if (!isSwiping && (Math.abs(diffX) > 10 || Math.abs(diffY) > 10)) {
+                isSwiping = true;
+                // If horizontal swipe is greater than vertical, handle it
+                if (Math.abs(diffX) > Math.abs(diffY)) {
+                    event.preventDefault();
+                }
+            }
+            
+            // If we determined it's a horizontal swipe, handle scrolling
+            if (isSwiping && Math.abs(diffX) > Math.abs(diffY)) {
                 event.preventDefault();
                 container.scrollLeft = scrollStartX + diffX;
             }
@@ -58,6 +69,7 @@
             touchStartX = 0;
             touchStartY = 0;
             scrollStartX = 0;
+            isSwiping = false;
         }
         
         container.addEventListener('touchstart', handleTouchStart as EventListener, { passive: true });
@@ -103,6 +115,7 @@
 <svelte:head>
     <title>Elias Johnson | Software Engineer</title>
     <meta name="description" content="Software Engineer specializing in full-stack development and technical solutions">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta property="og:title" content="Elias Johnson | Software Engineer">
     <meta property="og:description" content="Software Engineer specializing in full-stack development and technical solutions">
     <meta property="og:image" content="https://yourdomain.com/preview-image.jpg">
@@ -120,8 +133,6 @@
         <a href="https://linkedin.com/in/eliasjohnson211" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn Profile">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
         </a>
-    </div>
-    <div class="nav-contact">
         <a href="https://linkedin.com/in/eliasjohnson211" target="_blank" class="contact-link">Get in touch</a>
     </div>
 </nav>
@@ -134,7 +145,8 @@
             <h1 class="name">Elias Johnson</h1>
             <p class="title">Software Engineer</p>
             <div class="scroll-hint">
-                <span>Scroll horizontally →</span>
+                <span class="scroll-text">Scroll horizontally →</span>
+                <span class="scroll-text-mobile">Swipe to explore →</span>
                 <div class="scroll-indicator">
                     <span>• • • • •</span>
                 </div>
@@ -225,19 +237,17 @@
 
     .navbar {
         position: fixed;
-        top: 1.5rem;
+        top: 1rem;
         left: 50%;
         transform: translateX(-50%);
-        width: calc(100% - 3rem);
-        max-width: 1200px;
+        width: auto;
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        padding: 1.25rem 2rem;
+        padding: 0.5rem 0.75rem;
         z-index: 100;
         background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(20px) saturate(180%);
-        border-radius: 24px;
+        border-radius: 16px;
         border: 1px solid rgba(255, 255, 255, 0.2);
         box-shadow: 
             0 8px 32px rgba(0, 0, 0, 0.05),
@@ -247,7 +257,7 @@
     .social-links {
         display: flex;
         align-items: center;
-        gap: 0.75rem;
+        gap: 0.5rem;
     }
     
     .social-link {
@@ -256,45 +266,41 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0.5rem;
-        border-radius: 12px;
+        padding: 0.4rem;
+        border-radius: 10px;
         background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(10px) saturate(180%);
         border: 1px solid rgba(255, 255, 255, 0.2);
         box-shadow: 
-            0 4px 16px rgba(0, 0, 0, 0.05),
+            0 2px 8px rgba(0, 0, 0, 0.05),
             inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
     
     .social-link:hover {
         color: #000;
         background: rgba(255, 255, 255, 0.2);
-        transform: translateY(-3px) scale(1.05);
+        transform: translateY(-2px) scale(1.05);
         box-shadow: 
-            0 8px 24px rgba(0, 0, 0, 0.1),
+            0 4px 12px rgba(0, 0, 0, 0.1),
             inset 0 1px 0 rgba(255, 255, 255, 0.3);
         border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .nav-contact {
-        display: flex;
-        align-items: center;
     }
     
     .contact-link {
         text-decoration: none;
         color: #000;
-        font-size: 1rem;
+        font-size: 0.9rem;
         font-weight: 600;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
-        padding: 0.75rem 1.25rem;
-        border-radius: 16px;
+        padding: 0.4rem 0.8rem;
+        margin-left: 0.5rem;
+        border-radius: 10px;
         background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(10px) saturate(180%);
         border: 1px solid rgba(255, 255, 255, 0.2);
         box-shadow: 
-            0 4px 16px rgba(0, 0, 0, 0.05),
+            0 2px 8px rgba(0, 0, 0, 0.05),
             inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
@@ -304,7 +310,7 @@
         border-color: rgba(255, 255, 255, 0.3);
         transform: translateY(-2px);
         box-shadow: 
-            0 8px 24px rgba(0, 0, 0, 0.1),
+            0 4px 12px rgba(0, 0, 0, 0.1),
             inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
 
@@ -341,7 +347,7 @@
         justify-content: center;
         position: relative;
         scroll-snap-align: start;
-        padding: 6rem 2rem 2rem;
+        padding: 4rem 2rem 2rem;
     }
 
     .section-content {
@@ -397,6 +403,14 @@
         flex-direction: column;
         align-items: center;
         gap: 0.5rem;
+    }
+
+    .scroll-text {
+        display: block;
+    }
+
+    .scroll-text-mobile {
+        display: none;
     }
 
     .scroll-indicator {
@@ -531,39 +545,110 @@
     /* Mobile Responsive */
     @media (max-width: 768px) {
         .navbar {
-            top: 1rem;
-            width: calc(100% - 2rem);
-            padding: 1rem 1.5rem;
-            border-radius: 20px;
-            flex-direction: column;
-            gap: 1rem;
+            top: 0.5rem;
+            padding: 0.4rem 0.5rem;
+            border-radius: 12px;
+        }
+
+        .horizontal-container {
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
         }
 
         .horizontal-section {
-            padding: 8rem 1rem 1rem;
+            padding: 3.5rem 1rem 1rem;
+            scroll-snap-align: center;
         }
 
         .section-content {
-            padding: 2rem;
+            padding: 1.5rem;
+            border-radius: 16px;
+            max-width: 100%;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .name {
+            font-size: clamp(2rem, 10vw, 3.5rem);
+            word-break: break-word;
+            white-space: normal;
+        }
+
+        .title {
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
+        }
+
+        h2 {
+            font-size: 1.75rem;
+        }
+
+        .section-content p {
+            font-size: 1rem;
+            line-height: 1.5;
         }
 
         .skills-grid {
             grid-template-columns: 1fr;
-            gap: 1.5rem;
+            gap: 1rem;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .skill-category h3 {
+            font-size: 1.25rem;
+        }
+
+        .skill-category p {
+            font-size: 0.9rem;
+        }
+
+        .experience-grid {
+            gap: 1rem;
+        }
+
+        .experience-item {
+            padding: 1.25rem;
+        }
+
+        .experience-item h3 {
+            font-size: 1.1rem;
+        }
+
+        .experience-item h4 {
+            font-size: 0.9rem;
+        }
+
+        .experience-item p {
+            font-size: 0.85rem;
         }
 
         .cta-buttons {
             flex-direction: column;
-            align-items: center;
+            align-items: stretch;
+            width: 100%;
+        }
+
+        .cta-button {
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            width: 100%;
+            text-align: center;
         }
 
         .social-links {
-            gap: 0.5rem;
+            gap: 0.25rem;
         }
 
         .social-link {
-            padding: 0.375rem;
-            border-radius: 10px;
+            padding: 0.35rem;
+            border-radius: 8px;
+            min-width: 32px;
+            min-height: 32px;
         }
 
         .social-link svg {
@@ -572,19 +657,82 @@
         }
 
         .contact-link {
-            font-size: 0.875rem;
-            padding: 0.5rem 0.875rem;
-            border-radius: 12px;
+            font-size: 0.8rem;
+            padding: 0.35rem 0.7rem;
+            border-radius: 8px;
+            margin-left: 0.3rem;
+        }
+
+        .scroll-hint {
+            font-size: 0.9rem;
+        }
+
+        .scroll-text {
+            display: none;
+        }
+
+        .scroll-text-mobile {
+            display: block;
+        }
+
+        .scroll-indicator {
+            font-size: 1.2rem;
         }
     }
 
     @media (max-width: 480px) {
         .navbar {
-            padding: 0.875rem 1rem;
+            padding: 0.35rem 0.4rem;
+            top: 0.25rem;
         }
 
         .horizontal-section {
-            padding: 10rem 0.5rem 1rem;
+            padding: 3rem 0.5rem 0.5rem;
+        }
+
+        .section-content {
+            padding: 1.25rem;
+        }
+
+        .name {
+            font-size: clamp(1.75rem, 12vw, 3rem);
+        }
+
+        .title {
+            font-size: clamp(1.25rem, 8vw, 2rem);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-content p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-link {
+            padding: 0.3rem;
+            min-width: 28px;
+            min-height: 28px;
+        }
+
+        .social-link svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .contact-link {
+            font-size: 0.75rem;
+            padding: 0.3rem 0.6rem;
+        }
+    }
+
+    /* Improve touch scrolling on iOS */
+    @supports (-webkit-touch-callout: none) {
+        .horizontal-container {
+            -webkit-overflow-scrolling: touch;
         }
     }
 </style>
