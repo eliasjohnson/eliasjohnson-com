@@ -376,7 +376,7 @@
         font-size: clamp(2.5rem, 8vw, 6rem);
         line-height: 1.1;
         margin-bottom: 1rem;
-        color: #222;
+        color: #000;
         white-space: nowrap;
     }
 
@@ -421,7 +421,7 @@
         font-size: 2.5rem;
         font-weight: 700;
         margin-bottom: 1.5rem;
-        color: #222;
+        color: #000;
     }
 
     .section-content p {
@@ -511,7 +511,7 @@
         font-size: 1.25rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
-        color: #222;
+        color: #000;
     }
 
     .experience-item h4 {
