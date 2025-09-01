@@ -1,6 +1,39 @@
 <script lang="ts">
     import { onMount } from 'svelte';
+    import { base } from '$app/paths';
     
+    let currentSlide = 0;
+    let showLightbox = false;
+    let lightboxImage = '';
+    
+    const slides = [
+        { src: 'FS-1.jpeg', alt: 'IT Ticketing Dashboard - Overview' },
+        { src: 'FS-2.jpeg', alt: 'IT Ticketing Dashboard - Ticket Details' },
+        { src: 'FS-3.jpeg', alt: 'IT Ticketing Dashboard - Analytics' },
+        { src: 'FS-4.png', alt: 'IT Ticketing Dashboard - Settings' }
+    ];
+    
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+    }
+    
+    function previousSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    }
+    
+    function goToSlide(index: number) {
+        currentSlide = index;
+    }
+    
+    function openLightbox() {
+        lightboxImage = `${base}/${slides[currentSlide].src}`;
+        showLightbox = true;
+    }
+    
+    function closeLightbox() {
+        showLightbox = false;
+    }
+
     onMount(() => {
         const container = document.querySelector('.horizontal-container') as HTMLElement;
         
@@ -215,7 +248,52 @@
         </div>
     </section>
 
-    <!-- Section 5: Connect -->
+    <!-- Section 5: User Stories -->
+    <section class="horizontal-section user-stories-section">
+        <div class="section-content">
+            <h2>Featured Work</h2>
+            <p>IT Ticketing Dashboard - A comprehensive solution for managing and tracking IT support requests with real-time analytics and user-friendly interface.</p>
+            
+            <div class="carousel-container">
+                <!-- Single image display with absolute positioning for each slide -->
+                <div class="carousel-window" on:click={openLightbox} role="button" tabindex="0">
+                    {#each slides as slide, index}
+                        <img 
+                            src="{base}/{slide.src}" 
+                            alt={slide.alt}
+                            class="carousel-image {index === currentSlide ? 'active' : ''}"
+                            loading="eager"
+                        />
+                    {/each}
+                    <div class="click-to-expand">Click to view full size</div>
+                </div>
+                
+                <div class="carousel-nav">
+                    <button class="carousel-btn prev-btn" on:click={previousSlide} aria-label="Previous image">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15,18 9,12 15,6"></polyline>
+                        </svg>
+                    </button>
+                    <div class="carousel-indicators">
+                        {#each slides as _, index}
+                            <button 
+                                class="indicator {index === currentSlide ? 'active' : ''}" 
+                                on:click={() => goToSlide(index)} 
+                                aria-label="Go to slide {index + 1}"
+                            ></button>
+                        {/each}
+                    </div>
+                    <button class="carousel-btn next-btn" on:click={nextSlide} aria-label="Next image">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9,18 15,12 9,6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Connect -->
     <section class="horizontal-section connect-section">
         <div class="section-content">
             <h2>Let's Connect</h2>
@@ -227,6 +305,21 @@
         </div>
     </section>
 </div>
+
+<!-- Lightbox Modal -->
+{#if showLightbox}
+<div class="lightbox" on:click={closeLightbox}>
+    <div class="lightbox-content">
+        <img src={lightboxImage} alt="Full size view" />
+        <button class="lightbox-close" on:click={closeLightbox} aria-label="Close lightbox">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+</div>
+{/if}
 
 <style>
     :global(html, body) {
@@ -726,6 +819,262 @@
         .contact-link {
             font-size: 0.75rem;
             padding: 0.3rem 0.6rem;
+        }
+    }
+
+    /* Carousel Styles */
+    .carousel-container {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        margin: 1.5rem auto 0;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px) saturate(180%);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 
+            0 4px 16px rgba(0, 0, 0, 0.05),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        overflow: hidden;
+    }
+
+    .carousel-window {
+        position: relative;
+        height: 350px;
+        overflow: hidden;
+        cursor: pointer;
+        background: rgba(0, 0, 0, 0.02);
+    }
+
+    .carousel-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .carousel-image.active {
+        opacity: 1;
+    }
+
+    .click-to-expand {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+    }
+
+    .carousel-window:hover .click-to-expand {
+        opacity: 1;
+    }
+
+    .carousel-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(5px);
+    }
+
+    .carousel-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        color: #000;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 
+            0 2px 8px rgba(0, 0, 0, 0.05),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .carousel-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 
+            0 4px 12px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .carousel-btn:active {
+        transform: translateY(0) scale(0.95);
+    }
+
+    .carousel-indicators {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(5px);
+    }
+
+    .indicator:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.4);
+        transform: scale(1.1);
+    }
+
+    .indicator.active {
+        background: rgba(0, 0, 0, 0.6);
+        border-color: rgba(0, 0, 0, 0.3);
+        transform: scale(1.2);
+    }
+
+    /* Lightbox Styles */
+    .lightbox {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .lightbox-content {
+        position: relative;
+        max-width: 90vw;
+        max-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .lightbox-content img {
+        max-width: 100%;
+        max-height: 90vh;
+        object-fit: contain;
+        border-radius: 8px;
+        animation: scaleIn 0.3s ease;
+    }
+
+    .lightbox-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .lightbox-close:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.1);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes scaleIn {
+        from { transform: scale(0.9); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Mobile carousel adjustments */
+    @media (max-width: 768px) {
+        .carousel-container {
+            margin: 1rem auto 0;
+            max-width: 100%;
+        }
+
+        .carousel-window {
+            height: 280px;
+        }
+
+        .carousel-nav {
+            padding: 0.75rem;
+        }
+
+        .carousel-btn {
+            width: 36px;
+            height: 36px;
+        }
+
+        .carousel-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .indicator {
+            width: 8px;
+            height: 8px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .carousel-container {
+            margin: 1rem auto 0;
+        }
+
+        .carousel-window {
+            height: 220px;
+        }
+
+        .carousel-nav {
+            padding: 0.5rem;
+        }
+
+        .carousel-btn {
+            width: 32px;
+            height: 32px;
+        }
+
+        .carousel-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .carousel-indicators {
+            gap: 0.375rem;
+        }
+
+        .indicator {
+            width: 6px;
+            height: 6px;
         }
     }
 
