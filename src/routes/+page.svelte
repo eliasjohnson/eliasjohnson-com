@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
     import { base } from '$app/paths';
     
     let currentSlide = 0;
@@ -34,116 +33,12 @@
         showLightbox = false;
     }
 
-    onMount(() => {
-        const container = document.querySelector('.horizontal-container') as HTMLElement;
-        
-        if (!container) {
-            console.error('Container not found');
-            return;
-        }
-        
-        // Enhanced wheel handler for both vertical and horizontal scrolling
-        function handleScroll(event: WheelEvent) {
-            if (!container) return;
-            
-            // Check if there's horizontal scrolling (from trackpad/horizontal wheel)
-            if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
-                // Native horizontal scroll - let it through
-                return;
-            } else {
-                // Convert vertical scroll to horizontal
-                event.preventDefault();
-                const scrollAmount = event.deltaY;
-                container.scrollLeft += scrollAmount;
-            }
-        }
-        
-        // Add to container for better control
-        container.addEventListener('wheel', handleScroll as EventListener, { passive: false });
-        
-        // Enhanced touch support for mobile
-        let touchStartX = 0;
-        let touchStartY = 0;
-        let scrollStartX = 0;
-        let isSwiping = false;
-        
-        function handleTouchStart(event: TouchEvent) {
-            touchStartX = event.touches[0].clientX;
-            touchStartY = event.touches[0].clientY;
-            scrollStartX = container.scrollLeft;
-            isSwiping = false;
-        }
-        
-        function handleTouchMove(event: TouchEvent) {
-            if (!touchStartX || !touchStartY) return;
-            
-            const touchEndX = event.touches[0].clientX;
-            const touchEndY = event.touches[0].clientY;
-            const diffX = touchStartX - touchEndX;
-            const diffY = touchStartY - touchEndY;
-            
-            // Determine swipe direction early
-            if (!isSwiping && (Math.abs(diffX) > 10 || Math.abs(diffY) > 10)) {
-                isSwiping = true;
-                // If horizontal swipe is greater than vertical, handle it
-                if (Math.abs(diffX) > Math.abs(diffY)) {
-                    event.preventDefault();
-                }
-            }
-            
-            // If we determined it's a horizontal swipe, handle scrolling
-            if (isSwiping && Math.abs(diffX) > Math.abs(diffY)) {
-                event.preventDefault();
-                container.scrollLeft = scrollStartX + diffX;
-            }
-        }
-        
-        function handleTouchEnd() {
-            touchStartX = 0;
-            touchStartY = 0;
-            scrollStartX = 0;
-            isSwiping = false;
-        }
-        
-        container.addEventListener('touchstart', handleTouchStart as EventListener, { passive: true });
-        container.addEventListener('touchmove', handleTouchMove as EventListener, { passive: false });
-        container.addEventListener('touchend', handleTouchEnd, { passive: true });
-        
-        // Arrow key navigation
-        function handleKeydown(event: KeyboardEvent) {
-            if (!container) return;
-            switch(event.key) {
-                case 'ArrowRight':
-                    event.preventDefault();
-                    container.scrollLeft += window.innerWidth;
-                    break;
-                case 'ArrowLeft':  
-                    event.preventDefault();
-                    container.scrollLeft -= window.innerWidth;
-                    break;
-                case 'ArrowDown':
-                    event.preventDefault();
-                    container.scrollLeft += window.innerWidth;
-                    break;
-                case 'ArrowUp':
-                    event.preventDefault();  
-                    container.scrollLeft -= window.innerWidth;
-                    break;
-            }
-        }
-        
-        window.addEventListener('keydown', handleKeydown);
-        
-        // Cleanup
-        return () => {
-            container.removeEventListener('wheel', handleScroll as EventListener);
-            container.removeEventListener('touchstart', handleTouchStart as EventListener);
-            container.removeEventListener('touchmove', handleTouchMove as EventListener);
-            container.removeEventListener('touchend', handleTouchEnd);
-            window.removeEventListener('keydown', handleKeydown);
-        };
-    });
+
+
+
+    
 </script>
+
 
 <svelte:head>
     <title>Elias Johnson | Software Engineer</title>
@@ -170,25 +65,18 @@
     </div>
 </nav>
 
-<!-- Horizontal Scroll Container -->
-<div class="horizontal-container">
+<!-- Main Content Container -->
+<main class="main-content">
     <!-- Section 1: Hero/Landing -->
-    <section class="horizontal-section hero-section">
+    <section class="section hero-section">
         <div class="section-content">
             <h1 class="name">Elias Johnson</h1>
             <h2>Software Engineer</h2>
-            <div class="scroll-hint">
-                <span class="scroll-text">Scroll horizontally →</span>
-                <span class="scroll-text-mobile">Swipe to explore →</span>
-                <div class="scroll-indicator">
-                    <span>• • • • •</span>
-                </div>
-            </div>
         </div>
     </section>
 
     <!-- Section 2: About -->
-    <section class="horizontal-section about-section">
+    <section class="section about-section">
         <div class="section-content">
             <h2>About Me</h2>
             <p>As a Software Engineer and Data Analyst with a growth mindset, I lead with curiosity and thrive as a collaborative team player who learns quickly and welcomes new challenges. I leverage AI tools strategically—not just for speed, but to build smarter software that prioritizes user experience which brings real-world impact.</p>
@@ -197,7 +85,7 @@
     </section>
 
     <!-- Section 3: Skills -->
-    <section class="horizontal-section skills-section">
+    <section class="section skills-section">
         <div class="section-content">
             <h2>Technical Skills</h2>
             <div class="skills-grid">
@@ -230,7 +118,7 @@
     </section>
 
     <!-- Section 4: Experience -->
-    <section class="horizontal-section experience-section">
+    <section class="section experience-section">
         <div class="section-content">
             <h2>Current Experience</h2>
             <div class="experience-grid">
@@ -249,14 +137,14 @@
     </section>
 
     <!-- Section 5: User Stories -->
-    <section class="horizontal-section user-stories-section">
+    <section class="section user-stories-section">
         <div class="section-content">
             <h2>Featured Work</h2>
             <p>IT Ticketing Dashboard - A comprehensive solution for managing and tracking IT support requests with real-time analytics and user-friendly interface.</p>
             
             <div class="carousel-container">
                 <!-- Single image display with absolute positioning for each slide -->
-                <div class="carousel-window" on:click={openLightbox} role="button" tabindex="0">
+                <div class="carousel-window" on:click={openLightbox} on:keypress={(e) => e.key === 'Enter' && openLightbox()} role="button" tabindex="0">
                     {#each slides as slide, index}
                         <img 
                             src="{base}/{slide.src}" 
@@ -294,7 +182,7 @@
     </section>
 
     <!-- Section 6: Connect -->
-    <section class="horizontal-section connect-section">
+    <section class="section connect-section">
         <div class="section-content connect-content">
             <div class="connect-text">
                 <h2>Let's Connect</h2>
@@ -309,11 +197,11 @@
             </div>
         </div>
     </section>
-</div>
+</main>
 
 <!-- Lightbox Modal -->
 {#if showLightbox}
-<div class="lightbox" on:click={closeLightbox}>
+<div class="lightbox" on:click={closeLightbox} on:keypress={(e) => e.key === 'Escape' && closeLightbox()} role="dialog" aria-label="Image lightbox" tabindex="-1">
     <div class="lightbox-content">
         <img src={lightboxImage} alt="Full size view" />
         <button class="lightbox-close" on:click={closeLightbox} aria-label="Close lightbox">
@@ -329,8 +217,8 @@
 <style>
     :global(html, body) {
         height: 100%;
-        overflow: hidden;
         color: #222;
+        scroll-behavior: smooth;
     }
 
     .navbar {
@@ -412,40 +300,24 @@
             inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
 
-    /* Horizontal Scroll Container */
-    .horizontal-container {
-        display: flex;
-        width: 100vw;
+    /* Main Content Container */
+    .main-content {
+        min-height: 100vh;
+        padding-top: 4rem;
+        scroll-snap-type: y mandatory;
+        overflow-y: scroll;
         height: 100vh;
-        overflow-x: auto;
-        overflow-y: hidden;
-        scroll-behavior: smooth;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none; /* IE and Edge */
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 10;
-        background: transparent;
-    }
-    
-    .horizontal-container::-webkit-scrollbar {
-        display: none; /* Chrome, Safari and Opera */
     }
 
-    .horizontal-section {
-        width: 100vw;
-        height: 100vh;
-        flex-shrink: 0;
+    .section {
+        min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
+        padding: 4rem 2rem;
         scroll-snap-align: start;
-        padding: 4rem 2rem 2rem;
+        scroll-snap-stop: always;
     }
 
     .section-content {
@@ -453,22 +325,22 @@
         text-align: center;
         position: relative;
         z-index: 10;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.25);
         backdrop-filter: blur(20px) saturate(180%);
         padding: 3rem;
         border-radius: 24px;
         box-shadow: 
             0 8px 32px rgba(0, 0, 0, 0.05),
             inset 0 1px 0 rgba(255, 255, 255, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
         text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     /* Hero Section Styling */
     .hero-section .section-content {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.25);
         backdrop-filter: blur(20px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
         box-shadow: 
             0 8px 32px rgba(0, 0, 0, 0.05),
             inset 0 1px 0 rgba(255, 255, 255, 0.3);
@@ -484,39 +356,7 @@
         white-space: nowrap;
     }
 
-    .title {
-        font-family: "Clash Display", sans-serif;
-        font-weight: 600;
-        font-size: clamp(4rem, 10vw, 8rem);
-        color: #000;
-        margin: 0 0 2rem 0;
-    }
 
-    .scroll-hint {
-        opacity: 0.7;
-        font-size: 1.1rem;
-        color: #000;
-        animation: pulse 2s infinite;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .scroll-text {
-        display: block;
-    }
-
-    .scroll-text-mobile {
-        display: none;
-    }
-
-    .scroll-indicator {
-        font-size: 1.5rem;
-        letter-spacing: 0.5rem;
-        opacity: 0.5;
-        animation: slide 3s ease-in-out infinite;
-    }
 
     @keyframes pulse {
         0%, 100% { opacity: 0.7; }
@@ -652,14 +492,8 @@
             border-radius: 12px;
         }
 
-        .horizontal-container {
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .horizontal-section {
-            padding: 3.5rem 1rem 1rem;
-            scroll-snap-align: center;
+        .section {
+            padding: 3.5rem 1rem;
         }
 
         .section-content {
@@ -676,9 +510,6 @@
             white-space: normal;
         }
 
-        .title {
-            font-size: clamp(2.5rem, 8vw, 4rem);
-        }
 
         h2 {
             font-size: 1.5rem;
@@ -785,21 +616,6 @@
             margin-left: 0.3rem;
         }
 
-        .scroll-hint {
-            font-size: 0.9rem;
-        }
-
-        .scroll-text {
-            display: none;
-        }
-
-        .scroll-text-mobile {
-            display: block;
-        }
-
-        .scroll-indicator {
-            font-size: 1.2rem;
-        }
     }
 
     @media (max-width: 480px) {
@@ -808,8 +624,8 @@
             top: 0.25rem;
         }
 
-        .horizontal-section {
-            padding: 2.75rem 0.5rem 0.5rem;
+        .section {
+            padding: 2.75rem 0.5rem;
         }
 
         .section-content {
@@ -820,9 +636,6 @@
             font-size: clamp(1.75rem, 12vw, 3rem);
         }
 
-        .title {
-            font-size: clamp(2rem, 10vw, 3rem);
-        }
 
         h2 {
             font-size: 1.25rem;
@@ -1185,10 +998,5 @@
         border-color: rgba(255, 255, 255, 0.2);
     }
 
-    /* Improve touch scrolling on iOS */
-    @supports (-webkit-touch-callout: none) {
-        .horizontal-container {
-            -webkit-overflow-scrolling: touch;
-        }
-    }
+
 </style>
