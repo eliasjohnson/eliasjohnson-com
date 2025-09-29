@@ -122,16 +122,26 @@
         <div class="section-content">
             <h2>Current Experience</h2>
             <div class="experience-grid">
+
+                 <div class="experience-item">
+                    <h3>Software Engineer</h3>
+                    <h4>Red Team Interactive</h4>
+                    <p>Designed and built the data analytics platform focusing on game economy and pipelines for Azure Playflab analytics platform for critical business insights.</p>
+                </div>
+
                 <div class="experience-item">
                     <h3>Software Engineer</h3>
-                    <h4>Bookends • Jan 2025 - Present</h4>
+                    <h4>Bookends</h4>
                     <p>Built and shipped core backend and frontend functionality for a native Swift reading habit tracker hosted on AWS. Supported growth to 100+ paid users.</p>
                 </div>
+
                 <div class="experience-item">
-                    <h3>IT Systems Administrator</h3>
-                    <h4>Pattern • May 2023 - Present</h4>
-                    <p>Onboarded 1000+ employees with 67% reduction in setup time. Automated 154 hours of manual work annually via Python and Okta workflows.</p>
+                    <h3>Platform Engineer</h3>
+                    <h4>Pattern</h4>
+                    <p>May 2023 - September 2025</p>
+                    <p>Built the onboarding platform automation with Python and Okta workflows. for 1000+ employees with 67% reduction in setup time.</p>
                 </div>
+
             </div>
         </div>
     </section>
