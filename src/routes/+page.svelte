@@ -138,7 +138,6 @@
                 <div class="experience-item">
                     <h3>Platform Engineer</h3>
                     <h4>Pattern</h4>
-                    <p>May 2023 - September 2025</p>
                     <p>Built the onboarding platform automation with Python and Okta workflows. for 1000+ employees with 67% reduction in setup time.</p>
                 </div>
 
